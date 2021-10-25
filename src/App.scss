@@ -79,6 +79,7 @@
         left: 50%;
         z-index: 10;
         transform: translate(-50%, -50%);
+        cursor: move;
       }
 
       .dropable {
@@ -146,11 +147,16 @@
           top: -10px;
           left: -10px;
           overflow: hidden;
+          cursor: grab;
 
           .innerFrame {
             height: 100px;
             width: 200px;
             border: 5px solid rgba(0, 0, 0, 0.432);
+          }
+
+          &:active {
+            cursor: grabbing;
           }
         }
       }
