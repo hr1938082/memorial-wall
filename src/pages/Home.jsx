@@ -1,6 +1,5 @@
 import React from 'react';
 import useHome from '../Hooks/useHome';
-import WebLayout from '../components/layout/WebLayout';
 import BricksWallImage from '../images/wall.jpg';
 import { BsChevronLeft, BsChevronRight } from 'react-icons/bs'
 import { Resizable } from 're-resizable';
@@ -9,7 +8,7 @@ import Draggable from 'react-draggable';
 const Home = () => {
     const home = useHome();
     return (
-        <WebLayout>
+        <>
             <div className="dragable" ref={home.dragable}
                 onDragOver={home.handleDragOver}
                 onDragLeave={home.handleDragLeave}
@@ -71,7 +70,7 @@ const Home = () => {
                     </Draggable>
                 </div>
             </div>
-        </WebLayout>
+        </>
     )
 }
 

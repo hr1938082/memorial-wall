@@ -100,21 +100,22 @@ const useHome = () => {
     }
     const handleDrag = (e) => {
         const width = BricksWallWidth - window.innerWidth;
+        console.log(width);
         const pxToScroll = width / 600;
         let prevX = e.clientX;
         const Drag = (e) => {
-            let newX = e.clientX - prevX;
-            scrollTo = scrollTo + (pxToScroll * newX);
-            dragable.current.scrollTo(scrollTo, 0)
-            if (scrollTo <= 0) {
+            if (scrollTo < 0) {
+                console.log(scrollTo);
                 scrollTo = 0
-                console.log(prevX);
             }
-            else if (scrollTo >= width) {
-                scrollTo = width
-                console.log(prevX);
+            else if (scrollTo > width) {
+                console.log(scrollTo);
+                scrollTo = width - 1
             }
             else {
+                let newX = e.clientX - prevX;
+                scrollTo = scrollTo + (pxToScroll * newX);
+                dragable.current.scrollTo(scrollTo, 0)
                 prevX = e.clientX
             }
         }
