@@ -3,7 +3,7 @@ import { Route, Redirect, useHistory } from "react-router-dom";
 
 const ProtectedRoutes = ({ component: Component, ...restProps }) => {
     const history = useHistory();
-    const [IsAuthenticated, setIsAuthenticated] = useState(true);
+    const [IsAuthenticated, setIsAuthenticated] = useState(false);
     const path = restProps.path
     return (
         <Route
@@ -13,7 +13,7 @@ const ProtectedRoutes = ({ component: Component, ...restProps }) => {
                     IsAuthenticated === true ? (
                         path === '/login' ? history.goBack() : <Component {...props} />
                     ) : (
-                        <Redirect to="/login" />
+                        <Redirect exact to="/login" />
                     )
                 )
             }}

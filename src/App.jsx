@@ -1,5 +1,5 @@
 import './App.scss';
-import { Switch } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import WebLayout from './components/layout/WebLayout';
 import LoginSignup from './pages/LoginSignup';
@@ -10,7 +10,7 @@ function App() {
   return (
     <>
       <Switch>
-        <ProtectedRoutes exact strict path="/login" component={LoginSignup} />
+        <Route exact path="/login" component={LoginSignup} />
         <WebLayout>
           <ProtectedRoutes exact path="/" component={Home} />
           <ProtectedRoutes component={NotFound} />
