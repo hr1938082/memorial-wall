@@ -5,7 +5,7 @@ const WebNavbar = () => {
     return (
         <nav className="navbar navbar-light navbar-expand-lg bg-light fixed-top">
             <div className="container-fluid">
-                <NavLink className="navbar-brand" to="#">Offcanvas navbar</NavLink>
+                <NavLink className="navbar-brand" to="#">Memorial Wall</NavLink>
                 <button className="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                     <span className="navbar-toggler-icon"></span>
                 </button>
@@ -17,10 +17,10 @@ const WebNavbar = () => {
                     <div className="offcanvas-body">
                         <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
                             <li className="nav-item">
-                                <NavLink activeClassName="active" className="nav-link" aria-current="page" to="/">Home</NavLink>
+                                <NavLink className="nav-link active" aria-current="page" to="/">Home</NavLink>
                             </li>
                             <li className="nav-item">
-                                <NavLink activeClassName="active" className="nav-link" to="#">Link</NavLink>
+                                <NavLink className="nav-link" to="#">Link</NavLink>
                             </li>
                         </ul>
                     </div>
