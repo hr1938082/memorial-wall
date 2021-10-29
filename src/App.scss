@@ -11,6 +11,106 @@ $base-Color-btn: #0a68c0;
   font-family: 'Nunito', sans-serif;
 }
 
+nav {
+  background-color: $base-Color;
+
+  .container-fluid {
+    .navbar-brand {
+      color: white;
+    }
+
+    .offcanvas {
+      .offcanvas-body {
+        .navbar-nav {
+          .nav-item {
+            margin: 0 .4rem;
+
+            &:nth-child(2) {
+              margin: 0;
+              padding: 8px;
+            }
+
+            &:nth-child(3) {
+              margin: 0;
+              padding: 8px;
+            }
+
+            &:nth-child(4) {
+              margin: 0;
+              padding: 8px;
+            }
+
+
+            &:last-child {
+
+              margin: 0;
+            }
+
+            .nav-link {
+              color: white;
+              transition: 300ms;
+            }
+
+            .search {
+              height: 1.5rem;
+              border: none;
+              border-radius: 4px;
+              background-color: white;
+              overflow: hidden;
+              padding: 0 .5rem;
+
+
+              input[type='text'] {
+                height: 1.2rem;
+                width: 170px;
+                border: none;
+                margin: 0 .2rem;
+                background-color: transparent;
+
+                &:focus {
+                  outline: none;
+                }
+              }
+            }
+
+            .form-select {
+              height: 1.5rem;
+              width: 150px;
+              font-size: .9rem;
+              font-weight: 800;
+              padding-top: 0;
+              padding-bottom: 0;
+            }
+
+            .profile {
+              height: 2rem;
+              width: 2rem;
+              background-color: white;
+              cursor: pointer;
+              border-radius: 50%;
+              overflow: hidden;
+
+              img {
+                height: 100%;
+                width: 100%;
+              }
+            }
+
+            &:hover>.nav-link {
+              color: rgb(221, 221, 221);
+              transition: 300ms;
+            }
+
+            .active {
+              color: rgb(221, 221, 221);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 // `xxxl` applies to x-x-large devices
 .LoginSignup {
   height: 100vh;
