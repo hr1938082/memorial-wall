@@ -1,12 +1,305 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+$base-Color:#167fe0;
+$base-Color-Hover: #3c92e2;
+$base-Color-btn: #0a68c0;
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Nunito', sans-serif;
 }
 
+// `xxxl` applies to x-x-large devices
 .LoginSignup {
   height: 100vh;
-  border: 5px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .main {
+    position: relative;
+    height: 70vh;
+    min-width: 350px;
+    width: 60vw;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.521);
+    border-radius: 10px;
+    background-color: white;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+
+    .form {
+      min-width: 350px;
+      width: 50%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-content: center;
+      flex-wrap: wrap;
+      overflow: hidden;
+
+      .header {
+        width: 100%;
+        text-align: center;
+        color: $base-Color;
+      }
+
+      .body {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        padding: 0 1.5rem;
+
+        .text-feild {
+          width: 100%;
+
+          &:first-child {
+            margin-bottom: 1rem;
+          }
+        }
+
+        .showpass {
+          cursor: pointer;
+          font-size: 18px;
+        }
+
+        a {
+          color: rgb(128, 128, 128);
+          text-decoration: none;
+          font-size: 14px;
+          transition: 400ms;
+          margin-top: 0.3rem;
+
+          &:hover {
+            color: rgb(26, 26, 26);
+            transition: 400ms;
+          }
+
+        }
+
+        .bttn {
+          height: 2.3rem;
+          width: 100%;
+          border-radius: 10px;
+          border: none;
+          background-color: $base-Color;
+          color: white;
+          transition: 400ms;
+          margin-top: 1rem;
+
+          &:hover {
+            background-color: $base-Color-Hover;
+            transition: 400ms;
+          }
+        }
+
+        .policy {
+          span {
+            font-size: 14px;
+            padding-left: 0;
+          }
+        }
+      }
+
+      .footer {
+        width: 100%;
+        text-align: center;
+        margin-top: .5rem;
+
+        ul {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          padding: 0;
+
+          list-style: none;
+
+          li {
+            height: 35px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 35px;
+            margin: .5rem .5rem 0;
+            border: 1px solid gray;
+            border-radius: 50%;
+            cursor: pointer;
+
+            &:hover {
+              color: white !important;
+              transition: 400ms;
+            }
+
+            &:first-child {
+              color: #129AF6;
+              transition: 400ms;
+
+              &:hover {
+                background-color: #129AF6;
+              }
+            }
+
+            &:nth-child(2) {
+              color: #1D9BF0;
+              transition: 400ms;
+
+              &:hover {
+                background-color: #1D9BF0;
+              }
+            }
+
+            &:nth-child(3) {
+              color: #0037C1;
+              transition: 400ms;
+
+              &:hover {
+                background-color: #0037C1;
+              }
+            }
+
+            &:nth-child(4) {
+              color: #CA4336;
+              transition: 400ms;
+
+              &:hover {
+                background-color: #CA4336;
+              }
+            }
+
+            &:nth-child(5) {
+              color: #000000;
+              transition: 400ms;
+
+              &:hover {
+                background-color: #000000;
+              }
+            }
+
+            &:nth-child(6) {
+              color: #6001D2;
+              transition: 400ms;
+
+              &:hover {
+                background-color: #6001D2;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .signupForm {
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: 400ms;
+    }
+
+    .signupForm.active {
+      transform: scaleX(1);
+      transition: 400ms;
+      transition-delay: 400ms;
+    }
+
+    .loginForm {
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: 400ms;
+    }
+
+    .loginForm.active {
+      transform: scaleX(1);
+      transition: 400ms;
+      transition-delay: 400ms;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 50%;
+      background-color: $base-Color;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-content: center;
+      transition: 400ms;
+
+      .content {
+        width: 100%;
+        text-align: center;
+        overflow: hidden;
+
+        .header {
+          h1 {
+            color: white;
+          }
+        }
+
+        .body {
+
+          p {
+            margin: 0 auto;
+            text-align: justify;
+            width: 300px;
+            color: white;
+          }
+        }
+
+        .footer {
+          margin-top: 1rem;
+
+          input[type="button"] {
+            width: 300px;
+            height: 3rem;
+            border-radius: 30px;
+            border: none;
+            background-color: $base-Color-btn;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.603);
+            color: white;
+            transition: 400ms;
+
+            &:hover {
+              box-shadow: 0 0 10px white;
+              transition: 400ms;
+            }
+          }
+        }
+      }
+
+      .login {
+        height: 200px;
+        transition: 400ms;
+        transition-delay: 400ms;
+      }
+
+      .signup {
+        height: 0;
+        transition: 400ms;
+        transition-delay: 400ms;
+      }
+    }
+
+    .overlay.active {
+      left: 50%;
+      right: 0;
+      transition: 400ms;
+
+      .login {
+        height: 0;
+        transition: 400ms;
+        transition-delay: 400ms;
+      }
+
+      .signup {
+        height: 200px;
+        transition: 400ms;
+        transition-delay: 400ms;
+      }
+    }
+  }
 }
 
 .web-layout {
@@ -164,9 +457,41 @@
       }
     }
   }
+}
 
-  // for medium
-  @media (max-width: 991.98px) {
+// `xxl` applies to x-large devices (large desktops, less than 1400px)
+@media (max-width: 1399.98px) {
+  .LoginSignup {
+    .main {
+      width: 70vw;
+    }
+  }
+}
+
+// `xl` applies to large devices (desktops, less than 1200px)
+@media (max-width: 1199.98px) {
+  .LoginSignup {
+    .main {
+      height: 60vh;
+      width: 80vw;
+    }
+  }
+}
+
+// `lg` applies to medium devices (tablets, less than 992px)
+@media (max-width: 991.98px) {
+  .LoginSignup {
+    .main {
+      height: 60vh;
+      width: 90vw;
+
+      .form {
+        min-width: 300px;
+      }
+    }
+  }
+
+  .web-layout {
     section {
       height: calc(100vh - 120px);
 
@@ -188,6 +513,60 @@
 
       .dragableSlider {
         display: none;
+      }
+    }
+  }
+}
+
+// `md` applies to small devices (landscape phones, less than 768px)
+@media (max-width: 767.98px) {
+  .LoginSignup {
+    .main {
+      position: static;
+      height: 100vh;
+      width: 95vw;
+      border-radius: 0;
+      box-shadow: none;
+
+      .form {
+        width: 100%;
+
+        .body {
+          padding: 0;
+        }
+      }
+
+      .loginForm {
+        transform: scaleX(1);
+        height: 40%;
+      }
+
+      .loginForm.active {
+        height: 60%;
+        transition-delay: 0ms;
+      }
+
+      .signupForm {
+        transform: scaleX(1);
+        height: 45%;
+      }
+
+      .signupForm.active {
+        height: 60%;
+        transform: scaleX(1);
+        transition-delay: 0ms;
+      }
+
+
+      .overlay {
+        width: 100%;
+        bottom: 60%;
+      }
+
+      .overlay.active {
+        left: 0;
+        top: 60%;
+        bottom: -10%;
       }
     }
   }
