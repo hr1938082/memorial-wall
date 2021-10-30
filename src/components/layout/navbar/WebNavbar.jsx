@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { MdSearch, MdMic, MdOutlineSettings, MdLogout } from 'react-icons/md';
+import { MdSearch, MdMic, MdOutlineSettings, MdLogout, MdClose } from 'react-icons/md';
 import { BsQuestionLg } from 'react-icons/bs'
 import { GiCandleLight } from 'react-icons/gi'
 import { Tooltip, Menu, MenuItem, Avatar, Divider, ListItemIcon } from '@mui/material';
@@ -24,8 +24,8 @@ const WebNavbar = () => {
                 </button>
                 <div className="offcanvas offcanvas-start" tabIndex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                     <div className="offcanvas-header">
-                        <h5 className="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
-                        <button type="button" className="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                        <h5 className="offcanvas-title" id="offcanvasNavbarLabel">Memorial Wall</h5>
+                        <button type="button" className="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"><MdClose /></button>
                     </div>
                     <div className="offcanvas-body">
                         <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
@@ -36,9 +36,9 @@ const WebNavbar = () => {
                             </li>
                             <li className="nav-item">
                                 <div className="search">
-                                    <MdSearch />
+                                    <MdSearch style={{ fontSize: '1.3rem' }} />
                                     <input type="text" name="search" className="" />
-                                    <MdMic />
+                                    <MdMic style={{ fontSize: '1.3rem' }} />
                                 </div>
                             </li>
                             <li className="nav-item">
@@ -51,7 +51,7 @@ const WebNavbar = () => {
                             </li>
                             <li className="nav-item">
                                 <select class="form-select" aria-label=".form-select-sm example">
-                                    <option selected>Wall</option>
+                                    <option selected disabled>Wall</option>
                                     <option value="1">Community</option>
                                     <option value="2">Two</option>
                                     <option value="3">Three</option>
@@ -70,14 +70,14 @@ const WebNavbar = () => {
                             <li className="nav-item">
                                 <Tooltip title="setting">
                                     <NavLink className="nav-link" activeClassName="active" to="/setting">
-                                        <MdOutlineSettings />
+                                        <MdOutlineSettings /> <span className="d-inline d-lg-none">Setting</span>
                                     </NavLink>
                                 </Tooltip>
                             </li>
                             <li className="nav-item">
                                 <Tooltip title="FAQ">
                                     <NavLink className="nav-link" activeClassName="active" to="/faq">
-                                        <BsQuestionLg />
+                                        <BsQuestionLg /> <span className="d-inline d-lg-none">FAQ</span>
                                     </NavLink>
                                 </Tooltip>
                             </li>
@@ -87,6 +87,7 @@ const WebNavbar = () => {
                                         <img src={user} alt="User Profile" />
                                     </div>
                                 </Tooltip>
+                                <div className="d-block d-lg-none name"><div></div> Hassan Ali Raza</div>
                                 <Menu
                                     anchorEl={anchorEl}
                                     open={open}

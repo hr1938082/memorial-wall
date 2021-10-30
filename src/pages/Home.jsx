@@ -8,7 +8,7 @@ import Draggable from 'react-draggable';
 const Home = () => {
     const home = useHome();
     return (
-        <>
+        <div className="home">
             <div className="dragable" ref={home.dragable}
                 onDragOver={home.handleDragOver}
                 onDragLeave={home.handleDragLeave}
@@ -70,7 +70,7 @@ const Home = () => {
                     </Draggable>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 

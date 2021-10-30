@@ -11,6 +11,7 @@ $base-Color-btn: #0a68c0;
   font-family: 'Nunito', sans-serif;
 }
 
+// `xxxl` applies to x-x-large devices (x-large desktops, more than 1400px)
 nav {
   background-color: $base-Color;
 
@@ -21,7 +22,7 @@ nav {
 
     .navbar-nav {
       .nav-item {
-        margin: 0 .4rem;
+        margin: 0 .3rem;
 
         &:nth-child(2) {
           margin: 0;
@@ -112,7 +113,7 @@ footer {
 
   .navbar-nav {
     .nav-item {
-      margin: 0 .4rem;
+      margin: 0 .3rem;
 
       .nav-link {
         color: white;
@@ -131,7 +132,6 @@ footer {
   }
 }
 
-// `xxxl` applies to x-x-large devices
 .LoginSignup {
   height: 100vh;
   display: flex;
@@ -425,153 +425,156 @@ footer {
 .web-layout {
   section {
     margin-top: 56px;
-    height: calc(100vh - 112px);
 
-    .dragable {
-      position: relative;
-      overflow-x: auto;
+    .home {
+      height: calc(100vh - 112px);
 
-      .bricks-wall {
-        height: calc(75vh - 64px);
-        user-select: none;
-      }
-
-      .chevron-left {
-        position: fixed;
-        user-select: none;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        top: 56px;
-        left: 0;
-        height: calc(75vh - 64px);
-        width: 2%;
-        background-color: rgba(0, 0, 0, 0.301);
-        cursor: pointer;
-        border-top-right-radius: 20px;
-        border-bottom-right-radius: 20px;
-        color: white;
-        font-size: 35px;
-        transition: 200ms;
-        z-index: 10;
-
-        &:hover {
-          background-color: rgba(0, 0, 0, 0.5);
-          font-size: 40px;
-          transition: 200ms;
-        }
-      }
-
-      .chevron-right {
-        user-select: none;
-        position: fixed;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        top: 56px;
-        right: 0;
-        height: calc(75vh - 64px);
-        width: 2%;
-        background-color: rgba(0, 0, 0, 0.301);
-        cursor: pointer;
-        border-top-left-radius: 20px;
-        border-bottom-left-radius: 20px;
-        color: white;
-        font-size: 35px;
-        transition: 200ms;
-        z-index: 10;
-
-        &:hover {
-          background-color: rgba(0, 0, 0, 0.5);
-          font-size: 40px;
-          transition: 200ms;
-        }
-      }
-
-      .droppedImage {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        z-index: 10;
-        transform: translate(-50%, -50%);
-        cursor: move;
-      }
-
-      .dropable {
-        position: fixed;
-        top: 66px;
-        left: 10px;
-        right: 10px;
-        height: calc(75vh - 84px);
-        border: 2px dashed white;
-        border-radius: 10px;
-        z-index: 9;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: white;
-        font-size: 70px;
-        font-weight: bolder;
-        text-transform: uppercase;
-        text-shadow: 0 0 10px black;
-        opacity: 0;
-        transition: 200ms ease-in-out;
-      }
-
-      .dropable.active {
-        opacity: 1;
-        transition: 200ms ease-in-out;
-      }
-
-      &::-webkit-scrollbar {
-        display: none;
-      }
-    }
-
-    .dragableSlider {
-      user-select: none;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-      height: calc(25vh - 56px);
-      overflow: hidden;
-
-      .control {
+      .dragable {
         position: relative;
-        height: 100px;
-        width: 800px;
-        position: relative;
+        overflow-x: auto;
 
-        img {
-          height: 100px;
-          width: 100%;
-          border-radius: 5px;
+        .bricks-wall {
+          height: calc(75vh - 64px);
           user-select: none;
         }
 
-        .outerFrame {
+        .chevron-left {
+          position: fixed;
+          user-select: none;
           display: flex;
           justify-content: center;
           align-items: center;
-          height: 120px;
-          width: 220px;
-          border: 10px solid rgba(0, 0, 0, 0.493);
-          border-radius: 10px;
-          position: absolute;
-          top: -10px;
-          left: -10px;
-          overflow: hidden;
-          cursor: grab;
+          top: 56px;
+          left: 0;
+          height: calc(75vh - 64px);
+          width: 2%;
+          background-color: rgba(0, 0, 0, 0.301);
+          cursor: pointer;
+          border-top-right-radius: 20px;
+          border-bottom-right-radius: 20px;
+          color: white;
+          font-size: 35px;
+          transition: 200ms;
+          z-index: 10;
 
-          .innerFrame {
+          &:hover {
+            background-color: rgba(0, 0, 0, 0.5);
+            font-size: 40px;
+            transition: 200ms;
+          }
+        }
+
+        .chevron-right {
+          user-select: none;
+          position: fixed;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          top: 56px;
+          right: 0;
+          height: calc(75vh - 64px);
+          width: 2%;
+          background-color: rgba(0, 0, 0, 0.301);
+          cursor: pointer;
+          border-top-left-radius: 20px;
+          border-bottom-left-radius: 20px;
+          color: white;
+          font-size: 35px;
+          transition: 200ms;
+          z-index: 10;
+
+          &:hover {
+            background-color: rgba(0, 0, 0, 0.5);
+            font-size: 40px;
+            transition: 200ms;
+          }
+        }
+
+        .droppedImage {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          z-index: 10;
+          transform: translate(-50%, -50%);
+          cursor: move;
+        }
+
+        .dropable {
+          position: fixed;
+          top: 66px;
+          left: 10px;
+          right: 10px;
+          height: calc(75vh - 84px);
+          border: 2px dashed white;
+          border-radius: 10px;
+          z-index: 9;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: white;
+          font-size: 70px;
+          font-weight: bolder;
+          text-transform: uppercase;
+          text-shadow: 0 0 10px black;
+          opacity: 0;
+          transition: 200ms ease-in-out;
+        }
+
+        .dropable.active {
+          opacity: 1;
+          transition: 200ms ease-in-out;
+        }
+
+        &::-webkit-scrollbar {
+          display: none;
+        }
+      }
+
+      .dragableSlider {
+        user-select: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        height: calc(25vh - 56px);
+        overflow: hidden;
+
+        .control {
+          position: relative;
+          height: 100px;
+          width: 800px;
+          position: relative;
+
+          img {
             height: 100px;
-            width: 200px;
-            border: 5px solid rgba(0, 0, 0, 0.432);
+            width: 100%;
+            border-radius: 5px;
+            user-select: none;
           }
 
-          &:active {
-            cursor: grabbing;
+          .outerFrame {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 120px;
+            width: 220px;
+            border: 10px solid rgba(0, 0, 0, 0.493);
+            border-radius: 10px;
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            overflow: hidden;
+            cursor: grab;
+
+            .innerFrame {
+              height: 100px;
+              width: 200px;
+              border: 5px solid rgba(0, 0, 0, 0.432);
+            }
+
+            &:active {
+              cursor: grabbing;
+            }
           }
         }
       }
@@ -600,6 +603,107 @@ footer {
 
 // `lg` applies to medium devices (tablets, less than 992px)
 @media (max-width: 991.98px) {
+  nav {
+    .offcanvas {
+      background-color: rgb(117, 117, 117);
+
+      .offcanvas-header {
+        color: white;
+
+        .btn-close {
+          background: url('') !important;
+          font-size: 1.4rem;
+        }
+      }
+
+      .offcanvas-body {
+        .navbar-nav {
+          padding-right: 0 !important;
+
+          li {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+
+            &:first-child {
+              order: 2;
+              border: 3px solid white;
+            }
+
+            &:nth-child(3) {
+              order: 8;
+            }
+
+            &:nth-child(4) {
+              order: 3;
+
+              .form-select {
+                width: 100% !important;
+                height: 2rem;
+                text-align: center;
+              }
+            }
+
+            &:nth-child(5) {
+              order: 7;
+            }
+
+            &:nth-child(6) {
+              order: 4;
+            }
+
+            &:nth-child(7) {
+              order: 5;
+            }
+
+            &:nth-child(8) {
+              order: 6;
+            }
+
+            &:last-child {
+              order: 0;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              color: white;
+              margin-bottom: .3rem;
+
+              .name {
+                margin: .5rem;
+
+
+                div {
+                  height: 10px;
+                  width: 10px;
+                  display: inline-block;
+                  background-color: green;
+                  border-radius: 50%;
+                }
+              }
+
+              .profile {
+                height: 100px;
+                width: 100px;
+              }
+            }
+
+            .search {
+              display: flex;
+              align-items: center;
+              height: 2.2rem;
+              width: 100%;
+
+              input[type='text'] {
+                height: 100%;
+                width: 85%;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
   .LoginSignup {
     .main {
       height: 60vh;
@@ -615,24 +719,26 @@ footer {
     section {
       height: calc(100vh - 112px);
 
-      .dragable {
-        .bricks-wall {
-          height: calc(100vh - 112px);
+      .home {
+        .dragable {
+          .bricks-wall {
+            height: calc(100vh - 112px);
+          }
+
+          .chevron-left {
+            height: calc(100vh - 112px);
+            width: 7%;
+          }
+
+          .chevron-right {
+            height: calc(100vh - 112px);
+            width: 7%;
+          }
         }
 
-        .chevron-left {
-          height: calc(100vh - 112px);
-          width: 7%;
+        .dragableSlider {
+          display: none;
         }
-
-        .chevron-right {
-          height: calc(100vh - 112px);
-          width: 7%;
-        }
-      }
-
-      .dragableSlider {
-        display: none;
       }
     }
   }

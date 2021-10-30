@@ -9,7 +9,7 @@ const WebLayout = (props) => {
             <section>
                 {props.children}
             </section>
-            <WebFooter />
+            {/* <WebFooter /> */}
         </div>
     )
 }
