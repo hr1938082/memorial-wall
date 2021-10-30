@@ -16,7 +16,7 @@ const WebNavbar = () => {
         setAnchorEl(null);
     };
     return (
-        <nav className="navbar navbar-light navbar-expand-lg fixed-top">
+        <nav className="navbar navbar-dark navbar-expand-lg fixed-top">
             <div className="container-fluid">
                 <NavLink className="navbar-brand" to="#">Memorial Wall</NavLink>
                 <button className="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
@@ -124,7 +124,7 @@ const WebNavbar = () => {
                                 >
                                     <MenuItem>
                                         <Avatar >
-                                            <img src={user} alt="User Profile" style={{ height: '100%' }} /></Avatar> Profile
+                                            <img src={user} alt="User Profile" style={{ height: '100%' }} /></Avatar> Hassan Ali Raza
                                     </MenuItem>
                                     <Divider />
                                     <MenuItem>
