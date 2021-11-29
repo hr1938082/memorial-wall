@@ -124,6 +124,7 @@ const useHome = () => {
 
     const DownloadJpeg = () => {
         html2canvas(dragable.current, {
+            width: BricksWallWidth,
             windowWidth: BricksWallWidth,
         }).then((canvas) => {
             const img = canvas.toDataURL("image/png");
