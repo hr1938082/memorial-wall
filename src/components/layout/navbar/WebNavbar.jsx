@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { MdSearch, MdMic, MdOutlineSettings, MdLogout, MdClose } from 'react-icons/md';
-import { BsQuestionLg } from 'react-icons/bs'
-import { GiCandleLight } from 'react-icons/gi'
-import { Tooltip, Menu, MenuItem, Avatar, Divider, ListItemIcon } from '@mui/material';
+import { BsQuestionLg } from 'react-icons/bs';
+import { GiCandleLight } from 'react-icons/gi';
+import { Tooltip, Menu, MenuItem, Avatar, Divider, ListItemIcon, } from '@mui/material';
 import user from '../../../images/userDummy.png'
 const WebNavbar = () => {
-
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -50,8 +49,8 @@ const WebNavbar = () => {
                                 />
                             </li>
                             <li className="nav-item">
-                                <select class="form-select" aria-label=".form-select-sm example">
-                                    <option selected disabled>Wall</option>
+                                <select className="form-select" defaultValue={0} aria-label=".form-select-sm example">
+                                    <option value="0" disabled>Wall</option>
                                     <option value="1">Community</option>
                                     <option value="2">Two</option>
                                     <option value="3">Three</option>

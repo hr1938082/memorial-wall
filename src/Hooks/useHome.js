@@ -1,4 +1,7 @@
-import { useRef, useState, useEffect } from "react"
+import { useRef, useState, useEffect } from "react";
+import html2canvas from "html2canvas";
+// import * as htmlToImage from 'html-to-image';
+// import { toJpeg } from "html-to-image";
 
 const useHome = () => {
     let scrollTo = 0;
@@ -7,13 +10,8 @@ const useHome = () => {
     let timeInterval;
     const dragable = useRef();
     const sliderControl = useRef();
-    const [BricksWallWidth, setBricksWallWidth] = useState(0);
+    const BricksWallWidth = 2000;
     const [dropedImages, setdropedImages] = useState([]);
-
-    useEffect(() => {
-        const BricksWall = dragable.current.children[0];
-        setBricksWallWidth(BricksWall.naturalWidth);
-    }, [BricksWallWidth])
 
 
     const handleScrollLeft = () => {
@@ -100,16 +98,13 @@ const useHome = () => {
     }
     const handleDrag = (e) => {
         const width = BricksWallWidth - window.innerWidth;
-        console.log(width);
         const pxToScroll = width / 600;
         let prevX = e.clientX;
         const Drag = (e) => {
             if (scrollTo < 0) {
-                console.log(scrollTo);
                 scrollTo = 0
             }
             else if (scrollTo > width) {
-                console.log(scrollTo);
                 scrollTo = width - 1
             }
             else {
@@ -126,6 +121,18 @@ const useHome = () => {
         window.addEventListener('mousemove', Drag);
         window.addEventListener('mouseup', mouseup);
     }
+
+    const DownloadJpeg = () => {
+        html2canvas(dragable.current, {
+            windowWidth: BricksWallWidth,
+        }).then((canvas) => {
+            const img = canvas.toDataURL("image/png");
+            const a = document.createElement('a');
+            a.href = img;
+            a.download = "Wall.png";
+            a.click();
+        });
+    }
     return {
         dragable,
         sliderControl,
@@ -138,7 +145,8 @@ const useHome = () => {
         handleDragOver,
         handleDragLeave,
         handleDrop,
-        handleDrag
+        handleDrag,
+        DownloadJpeg
     }
 }
 

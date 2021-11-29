@@ -438,6 +438,14 @@ footer {
           user-select: none;
         }
 
+        .downloadIcon {
+          position: fixed;
+          top: 65px;
+          right: 3%;
+          z-index: 1000;
+          background-color: white;
+        }
+
         .chevron-left {
           position: fixed;
           user-select: none;
@@ -492,10 +500,8 @@ footer {
 
         .droppedImage {
           position: absolute;
-          top: 50%;
-          left: 50%;
-          z-index: 10;
-          transform: translate(-50%, -50%);
+          top: 0;
+          z-index: 9;
           cursor: move;
         }
 
@@ -579,6 +585,40 @@ footer {
         }
       }
     }
+
+    .memorialize {
+      margin-top: 80px !important;
+
+      .main {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .sketchpad {
+        border: 10x solid black;
+        height: 550px;
+        width: 100%;
+      }
+
+      h5 {
+        font-size: .9rem;
+      }
+
+      .briksusedbyfont {
+        font-size: 1.2rem;
+        user-select: none;
+      }
+
+      .total {
+        font-size: 1.2rem;
+        user-select: none;
+
+        span {
+          text-decoration: underline;
+        }
+      }
+    }
   }
 }
 
@@ -612,7 +652,7 @@ footer {
         color: white;
 
         .btn-close {
-          background: url('') !important;
+          background-image: none !important;
           font-size: 1.4rem;
         }
       }
@@ -718,7 +758,6 @@ footer {
 
   .web-layout {
     section {
-      height: calc(100vh - 112px);
 
       .home {
         .dragable {
@@ -747,9 +786,6 @@ footer {
 
 // `md` applies to small devices (landscape phones, less than 768px)
 @media (max-width: 767.98px) {
-  footer {
-    .navbar-nav {}
-  }
 
   .LoginSignup {
     .main {
@@ -800,5 +836,9 @@ footer {
         bottom: -10%;
       }
     }
+  }
+
+  footer {
+    display: none !important;
   }
 }

@@ -2,20 +2,30 @@ import React from 'react';
 import useHome from '../Hooks/useHome';
 import BricksWallImage from '../images/wall.jpg';
 import { BsChevronLeft, BsChevronRight } from 'react-icons/bs'
+import { MdFileDownload } from 'react-icons/md'
 import { Resizable } from 're-resizable';
 import Draggable from 'react-draggable';
+import { Tooltip, IconButton } from '@mui/material';
 
 const Home = () => {
     const home = useHome();
     return (
-        <div className="home">
-            <div className="dragable" ref={home.dragable}
+        <div className="home" id="home">
+            <div className="dragable border" id="dragable" ref={home.dragable}
                 onDragOver={home.handleDragOver}
                 onDragLeave={home.handleDragLeave}
                 onDrop={home.handleDrop}
             >
-                <img src={BricksWallImage} style={{ width: `${home.BricksWallWidth}px` }} className="bricks-wall" alt="Bricks Wall" />
+                <img src={BricksWallImage} /* style={{ width: `${home.BricksWallWidth}px` }} */ width="2000" className="bricks-wall" alt="Bricks Wall" />
+
+
+                <Tooltip title="Download as Image" className="downloadIcon" data-html2canvas-ignore="true">
+                    <IconButton onClick={home.DownloadJpeg}>
+                        <MdFileDownload className="text-dark" />
+                    </IconButton>
+                </Tooltip>
                 <div
+                    data-html2canvas-ignore="true"
                     className="chevron-left"
                     onClick={home.handleScrollLeft}
                     onMouseDown={() => { home.startLongPress('left') }}
@@ -26,6 +36,7 @@ const Home = () => {
                     <BsChevronLeft />
                 </div>
                 <div
+                    data-html2canvas-ignore="true"
                     className="chevron-right"
                     onClick={home.handleScrollRight}
                     onMouseDown={() => { home.startLongPress('right') }}
@@ -34,6 +45,9 @@ const Home = () => {
                     onTouchEnd={() => { home.endLongPress() }}
                 >
                     <BsChevronRight />
+                </div>
+                <div className="dropable" data-html2canvas-ignore="true">
+                    Drop Image Here
                 </div>
                 {
                     home.dropedImages.map((val, index) => {
@@ -56,21 +70,16 @@ const Home = () => {
                         )
                     })
                 }
-                <div className="dropable">
-                    Drop Image Here
-                </div>
             </div>
-            <div className="dragableSlider">
+            <div className="dragableSlider" data-html2canvas-ignore="true">
                 <div className="control" ref={home.sliderControl}>
                     <img src={BricksWallImage} alt="Bricks Wall" />
-                    <Draggable bounds={{ top: 0, left: 0, right: 600, bottom: 0 }} onMouseDown={home.handleDrag}>
-                        <div className="outerFrame">
-                            <div className="innerFrame"></div>
-                        </div>
-                    </Draggable>
+                    <div className="outerFrame">
+                        <div className="innerFrame"></div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 
