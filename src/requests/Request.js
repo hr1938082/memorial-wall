@@ -1,16 +1,16 @@
-const baseUrl = '';
+const baseUrl = 'http://104.248.174.124:5000/';
 const requestValidator = (data) => {
     if (data) {
-        if (data.status === 200) {
-            if (data.data.status === true) {
-                return data.data.data;
+        if (data.status === true) {
+            if (Object.keys(data).length > 1) {
+                return data.data;
             }
             else {
-                console.log(`status: ${data.status}`);
+                return data.status;
             }
         }
         else {
-            console.log(`status: ${data.data.status}`);
+            console.log(`status: ${data.status}`);
         }
     }
     else {
@@ -18,15 +18,26 @@ const requestValidator = (data) => {
     }
 }
 const getRequest = async (uri) => {
-    const req = await fetch(baseUrl + uri);
+    const req = await fetch(`${baseUrl}${uri}`, {
+        headers: {
+            "Authorization": "f0e5c86b-4dd8-11ec-8f32-5c260a1f9235",
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+        },
+    });
     const res = await req.json(req);
     return requestValidator(await res);
 }
 
 const postRequest = async (uri, body) => {
     const req = await fetch(baseUrl + uri, {
+        headers: {
+            "Authorization": "f0e5c86b-4dd8-11ec-8f32-5c260a1f9235",
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+        },
         method: 'POST',
-        body: body
+        body: JSON.stringify(body)
     })
     const res = req.json();
     return requestValidator(await res);

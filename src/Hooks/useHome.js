@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import html2canvas from "html2canvas";
 // import * as htmlToImage from 'html-to-image';
 // import { toJpeg } from "html-to-image";

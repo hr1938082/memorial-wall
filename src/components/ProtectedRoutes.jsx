@@ -1,7 +1,7 @@
 import { Route, Redirect } from "react-router-dom";
 
 const ProtectedRoutes = ({ component: Component, ...restProps }) => {
-    const IsAuthenticated = true;
+    const IsAuthenticated = false;
     return (
         <Route
             {...restProps}
