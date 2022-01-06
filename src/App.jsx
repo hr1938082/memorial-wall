@@ -10,17 +10,17 @@ import SketchBoard from './pages/SketchBoard';
 
 function App() {
   const history = useHistory();
-  const IsAuthenticated = false;
+  const IsAuthenticated = true;
   return (
     <>
       <Switch>
-        <Route exact path="/login" component={/* () => IsAuthenticated ? history.goBack() :  */LoginSignup} />
+        <Route exact path="/login" component={() => IsAuthenticated ? history.goBack() : <LoginSignup />} />
         <WebLayout>
           <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/memorialize" component={Memorialize} />
-            <Route exact path="/sketchboard" component={SketchBoard} />
-            <Route component={NotFound} />
+            <ProtectedRoutes exact path="/" component={Home} />
+            <ProtectedRoutes exact path="/memorialize" component={Memorialize} />
+            <ProtectedRoutes exact path="/sketchboard" component={SketchBoard} />
+            <ProtectedRoutes component={NotFound} />
             {/* <ProtectedRoutes exact path="/" component={Home} />
             <ProtectedRoutes exact path="/memorialize" component={Memorialize} />
             <ProtectedRoutes exact path="/sketchboard" component={SketchBoard} />

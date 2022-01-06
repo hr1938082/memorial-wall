@@ -89,7 +89,6 @@ const useMemorialize = () => {
     useEffect(() => {
         getData();
         const existingWallDropDown = document.getElementById('existingWallDropDown');
-        console.log(DisplayOnWall, 'dddddddddddddddd');
         if (DisplayOnWall === 'existing') {
             existingWallDropDown.classList.remove('d-none');
         }

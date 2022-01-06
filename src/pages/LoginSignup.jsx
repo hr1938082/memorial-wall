@@ -17,9 +17,9 @@ const LoginSignup = () => {
                         <h1>Login</h1>
                     </div>
                     <div className="body">
-                        <TextField label="Email" className="text-feild" variant="standard" name='email'
+                        <TextField error={login.LoginValidator.email.error} helperText={login.LoginValidator.email.helperText} label="Email" className="text-feild" variant="standard" name='email'
                             value={login.loginValues.email} onChange={e => handleTextFeilds(e, login.setloginValues)} />
-                        <TextField label="Password" type={login.PassIcon ? "text" : "password"} className="text-feild"
+                        <TextField error={login.LoginValidator.password.error} helperText={login.LoginValidator.password.helperText} label="Password" type={login.PassIcon ? "text" : "password"} className="text-feild"
                             variant="standard" name='password' value={login.loginValues.password} onChange={e =>
                                 handleTextFeilds(e, login.setloginValues)}
                             InputProps={{
@@ -35,12 +35,7 @@ const LoginSignup = () => {
                             }}
                         />
                         <Link to="#">Forgot Password?</Link>
-                        <div className="w-100">
-                            <FormControlLabel control={<Checkbox checked={login.loginValues.remember} />} name="remember"
-                                onChange={e => handleCheckBox(e, login.setloginValues, login.loginValues.remember)} label="Remember
-                            me?" />
-                        </div>
-                        <input type="button" value="Login" className="bttn" />
+                        <input type="button" value="Login" className="bttn" onClick={login.loginSubmit} />
                     </div>
                     <div className="footer">
                         <h5 className="text-muted mt-2">Login With Social Accounts</h5>
@@ -71,9 +66,9 @@ const LoginSignup = () => {
                         <h1>Signup</h1>
                     </div>
                     <div className="body">
-                        <TextField label="Name" className="text-feild" variant="standard" name="name" value={login.signupValues.name} onChange={e => handleTextFeilds(e, login.setsignupValues)} />
-                        <TextField label="Email" className="text-feild" variant="standard" name="email" value={login.signupValues.email} onChange={e => handleTextFeilds(e, login.setsignupValues)} />
-                        <TextField label="Password" type={login.PassIcon ? "text" : "password"} className="text-feild"
+                        <TextField error={login.SignupValidator.name.error} helperText={login.SignupValidator.name.helperText} label="Name" className="text-feild" variant="standard" name="name" value={login.signupValues.name} onChange={e => handleTextFeilds(e, login.setsignupValues)} />
+                        <TextField error={login.SignupValidator.email.error} helperText={login.SignupValidator.email.helperText} label="Email" className="text-feild" variant="standard" name="email" value={login.signupValues.email} onChange={e => handleTextFeilds(e, login.setsignupValues)} />
+                        <TextField error={login.SignupValidator.password.error} helperText={login.SignupValidator.password.helperText} label="Password" type={login.PassIcon ? "text" : "password"} className="text-feild"
                             variant="standard" value={login.signupValues.password} onChange={e => handleTextFeilds(e, login.setsignupValues)}
                             name='password' InputProps={{
                                 endAdornment: (
@@ -94,8 +89,13 @@ const LoginSignup = () => {
                                 and
                                 <Link to="#"> Terms of Service </Link>
                             </span>
+                            <div className='text-danger'>
+                                {
+                                    login.SignupValidator.policy.helperText
+                                }
+                            </div>
                         </div>
-                        <input type="button" value="Login" className="bttn" />
+                        <input type="button" value="Signup" className="bttn" onClick={login.SingupSubmit} />
                     </div>
                 </div>
                 <div className="overlay" ref={login.overLay}>

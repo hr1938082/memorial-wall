@@ -10,7 +10,7 @@ const requestValidator = (data) => {
             }
         }
         else {
-            console.log(`status: ${data.status}`);
+            return data.message;
         }
     }
     else {
