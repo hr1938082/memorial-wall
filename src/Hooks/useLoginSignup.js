@@ -1,13 +1,17 @@
-import { useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import validator from 'validator';
+import { UserContext } from '../Context/UserContext';
 import { Login, Signup } from '../requests/UserRequest';
 
 const useLoginSignup = () => {
+    const { SaveUserInfo } = useContext(UserContext);
     const overLay = useRef();
     const loginForm = useRef();
     const signupForm = useRef();
     const [PassIcon, setPassIcon] = useState(false);
     const defaultValidator = { error: false, helperText: ' ' };
+
+    const [isLoading, setisLoading] = useState(false)
 
     const [loginValues, setloginValues] = useState({
         email: '',
@@ -53,8 +57,14 @@ const useLoginSignup = () => {
         })
         return error;
     }
-    const loginSubmit = () => {
+    const loginSubmit = async () => {
         if (!LoginValidatorfx()) {
+            setisLoading(true);
+            const login = await Login({ email: loginValues.email, password: loginValues.password });
+            if (login) {
+                SaveUserInfo(login);
+                console.log(login);
+            }
         }
     }
     const SignupValidatorfx = () => {
@@ -95,21 +105,23 @@ const useLoginSignup = () => {
     }
     const SingupSubmit = async () => {
         if (!SignupValidatorfx()) {
+            setisLoading(true);
             const signup = await Signup(signupValues);
             if (signup) {
-                if (!signup === 'User already exist!') {
+                if (signup !== 'User already exist!') {
+                    const login = await Login({ email: signupValues.email, password: signupValues.password });
+                    if (login) {
+                        SaveUserInfo(login);
+                    }
+                }
+                else {
                     setSignupValidator((prev) => {
                         return {
                             ...prev,
                             email: { error: true, helperText: 'User already exist!' }
                         }
                     })
-                }
-                else {
-                    const login = await Login(signupValues);
-                    if (login) {
-                        console.log(login);
-                    }
+                    setisLoading(false);
                 }
             }
         }
@@ -129,7 +141,8 @@ const useLoginSignup = () => {
         LoginValidator,
         loginSubmit,
         SignupValidator,
-        SingupSubmit
+        SingupSubmit,
+        isLoading
     }
 }
 

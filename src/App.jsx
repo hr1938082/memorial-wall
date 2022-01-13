@@ -7,28 +7,27 @@ import Home from './pages/Home';
 import Memorialize from './pages/Memorialize';
 import NotFound from './pages/NotFound';
 import SketchBoard from './pages/SketchBoard';
+import useUserData from './Hooks/useUserData';
+import { UserContext } from './Context/UserContext'
+import UserProfile from './pages/UserProfile';
+
 
 function App() {
-  const history = useHistory();
-  const IsAuthenticated = true;
   return (
-    <>
+    <UserContext.Provider value={useUserData()}>
       <Switch>
-        <Route exact path="/login" component={() => IsAuthenticated ? history.goBack() : <LoginSignup />} />
+        <Route exact path="/login" component={LoginSignup} />
         <WebLayout>
           <Switch>
             <ProtectedRoutes exact path="/" component={Home} />
             <ProtectedRoutes exact path="/memorialize" component={Memorialize} />
             <ProtectedRoutes exact path="/sketchboard" component={SketchBoard} />
+            <ProtectedRoutes exact path="/profile" component={UserProfile} />
             <ProtectedRoutes component={NotFound} />
-            {/* <ProtectedRoutes exact path="/" component={Home} />
-            <ProtectedRoutes exact path="/memorialize" component={Memorialize} />
-            <ProtectedRoutes exact path="/sketchboard" component={SketchBoard} />
-            <ProtectedRoutes component={NotFound} /> */}
           </Switch>
         </WebLayout>
       </Switch>
-    </>
+    </UserContext.Provider>
   )
 }
 

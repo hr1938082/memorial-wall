@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { Link, NavLink } from 'react-router-dom';
 import { MdSearch, MdMic, MdOutlineSettings, MdLogout, MdClose } from 'react-icons/md';
 import { BsQuestionLg } from 'react-icons/bs';
 import { GiCandleLight } from 'react-icons/gi';
 import { Tooltip, Menu, MenuItem, Avatar, Divider, ListItemIcon, } from '@mui/material';
 import user from '../../../images/userDummy.png'
+import { UserContext } from '../../../Context/UserContext';
 const WebNavbar = () => {
+    const { User, ClearLocalStorage } = useContext(UserContext);
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -82,11 +84,18 @@ const WebNavbar = () => {
                             </li>
                             <li className="nav-item">
                                 <Tooltip title="Profile">
-                                    <div className="profile" onClick={handleClick}>
-                                        <img src={user} alt="User Profile" />
+                                    <div>
+                                        <div className="profile d-none d-lg-block" onClick={handleClick}>
+                                            <img src={user} alt="User Profile" />
+                                        </div>
+                                        <Link to='/profile' style={{ textDecoration: 'none', color: 'white' }} >
+                                            <div className="profile d-block d-lg-none">
+                                                <img src={user} alt="User Profile" />
+                                            </div>
+                                            <div className="d-block d-lg-none name"> {User.user.name}</div>
+                                        </Link>
                                     </div>
                                 </Tooltip>
-                                <div className="d-block d-lg-none name"><div></div> Hassan Ali Raza</div>
                                 <Menu
                                     anchorEl={anchorEl}
                                     open={open}
@@ -122,11 +131,15 @@ const WebNavbar = () => {
                                     anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                                 >
                                     <MenuItem>
-                                        <Avatar >
-                                            <img src={user} alt="User Profile" style={{ height: '100%' }} /></Avatar> Hassan Ali Raza
+                                        <Link to="/profile" style={{ display: 'flex', textDecoration: 'none', color: 'black' }}>
+                                            <Avatar >
+                                                <img src={user} alt="User Profile" style={{ height: '100%' }} />
+                                            </Avatar>
+                                            {User.user.name}
+                                        </Link>
                                     </MenuItem>
                                     <Divider />
-                                    <MenuItem>
+                                    <MenuItem onClick={ClearLocalStorage}>
                                         <ListItemIcon>
                                             <MdLogout fontSize="small" />
                                         </ListItemIcon>

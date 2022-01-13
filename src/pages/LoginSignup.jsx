@@ -1,7 +1,7 @@
 import React from 'react';
 import useLoginSignup from '../Hooks/useLoginSignup';
 import useHandleChange from '../functions/useHandleChange';
-import { TextField, InputAdornment, FormControlLabel, Checkbox } from '@mui/material';
+import { TextField, InputAdornment, Checkbox, CircularProgress } from '@mui/material';
 import { FaEyeSlash, FaEye, FaFacebookF, FaTwitter, FaGoogle, FaYahoo } from 'react-icons/fa';
 import { SiAol, SiMyspace } from 'react-icons/si'
 import { Link, } from 'react-router-dom';
@@ -35,7 +35,15 @@ const LoginSignup = () => {
                             }}
                         />
                         <Link to="#">Forgot Password?</Link>
-                        <input type="button" value="Login" className="bttn" onClick={login.loginSubmit} />
+                        {
+                            login.isLoading ? (
+                                <button type="button" className="bttn" disabled>
+                                    <CircularProgress color="inherit" />
+                                </button>
+                            ) : (
+                                <button type="button" className="bttn" onClick={login.loginSubmit}>Login</button>
+                            )
+                        }
                     </div>
                     <div className="footer">
                         <h5 className="text-muted mt-2">Login With Social Accounts</h5>
@@ -95,7 +103,15 @@ const LoginSignup = () => {
                                 }
                             </div>
                         </div>
-                        <input type="button" value="Signup" className="bttn" onClick={login.SingupSubmit} />
+                        {
+                            login.isLoading ? (
+                                <button type="button" className="bttn" disabled>
+                                    <CircularProgress color="inherit" />
+                                </button>
+                            ) : (
+                                <button type="button" className="bttn" onClick={login.SingupSubmit} >Signup</button>
+                            )
+                        }
                     </div>
                 </div>
                 <div className="overlay" ref={login.overLay}>
