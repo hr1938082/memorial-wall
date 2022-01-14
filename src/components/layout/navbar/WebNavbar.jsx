@@ -77,7 +77,7 @@ const WebNavbar = () => {
                             </li>
                             <li className="nav-item">
                                 <Tooltip title="FAQ">
-                                    <NavLink className="nav-link" activeClassName="active" to="/faq">
+                                    <NavLink className="nav-link" activeClassName="active" to="/FAQ">
                                         <BsQuestionLg /> <span className="d-inline d-lg-none">FAQ</span>
                                     </NavLink>
                                 </Tooltip>

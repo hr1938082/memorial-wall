@@ -10,6 +10,8 @@ import SketchBoard from './pages/SketchBoard';
 import useUserData from './Hooks/useUserData';
 import { UserContext } from './Context/UserContext'
 import UserProfile from './pages/UserProfile';
+import FAQ from './pages/FAQ';
+import Pricing from './pages/Pricing';
 
 
 function App() {
@@ -23,6 +25,8 @@ function App() {
             <ProtectedRoutes exact path="/memorialize" component={Memorialize} />
             <ProtectedRoutes exact path="/sketchboard" component={SketchBoard} />
             <ProtectedRoutes exact path="/profile" component={UserProfile} />
+            <ProtectedRoutes exact path="/FAQ" component={FAQ} />
+            <ProtectedRoutes exact path="/pricing" component={Pricing} />
             <ProtectedRoutes component={NotFound} />
           </Switch>
         </WebLayout>
