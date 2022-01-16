@@ -2,12 +2,12 @@ import React, { useContext } from 'react';
 import { FiEdit } from 'react-icons/fi'
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md'
 import useProfile from '../Hooks/useProfile';
-import { Box, Button, IconButton, InputAdornment, Modal, TextField } from '@mui/material';
+import { Box, Button, IconButton, InputAdornment, Modal, TextField, Tooltip } from '@mui/material';
 import { UserContext } from '../Context/UserContext';
 
 const UserProfile = () => {
     const { User } = useContext(UserContext);
-    const { style, Image, ImageError, Name, NameError, Email, Password, PassVisibility, NewPassVisibility, ConformPassVisibility, PasswordError, dpEditButton, ImageModel, handleChangeImage, handleChangeName, handleChangeEmail, handleChangePassword, handleChangePassVisibility, handleChangeNewPassVisibility, handleChangeConformPassVisibility, handleOpenImageModel, handleCloseImageModel, nameSubmit } = useProfile();
+    const { style, Image, ImageError, Name, NameError, Email, EmailError, Password, PassVisibility, NewPassVisibility, ConformPassVisibility, PasswordError, dpEditButton, ImageModel, handleChangeImage, handleChangeName, handleChangeEmail, handleChangePassword, handleChangePassVisibility, handleChangeNewPassVisibility, handleChangeConformPassVisibility, handleOpenImageModel, handleCloseImageModel, nameSubmit, emailSubmit } = useProfile();
     return (
         <div className='user-profile'>
             <div className="content">
@@ -73,9 +73,11 @@ const UserProfile = () => {
                             <div className="py-1">Name</div>
                             <div className="val-edit">
                                 <div className="val">{User.user.name}</div>
-                                <button className="valEdit" data-bs-toggle="collapse" data-bs-target="#userName" aria-expanded="false" aria-controls="userName">
-                                    <FiEdit />
-                                </button>
+                                <Tooltip placement='top' title="Edit">
+                                    <IconButton size='small' data-bs-toggle="collapse" data-bs-target="#userName" aria-expanded="false" aria-controls="userName">
+                                        <FiEdit />
+                                    </IconButton>
+                                </Tooltip>
                             </div>
                         </div>
                         <div className="collapse" id="userName">
@@ -92,17 +94,19 @@ const UserProfile = () => {
                             <div className="py-1">Email</div>
                             <div className="val-edit">
                                 <div className="val">{User.user.email}</div>
-                                <button className="valEdit" data-bs-toggle="collapse" data-bs-target="#userEmail" aria-expanded="false" aria-controls="userEmail">
-                                    <FiEdit />
-                                </button>
+                                <Tooltip placement='top' title="Edit">
+                                    <IconButton size='small' data-bs-toggle="collapse" data-bs-target="#userEmail" aria-expanded="false" aria-controls="userEmail">
+                                        <FiEdit />
+                                    </IconButton>
+                                </Tooltip>
                             </div>
                         </div>
                         <div className="collapse" id="userEmail">
                             <div className="input-wrapper">
-                                <TextField variant='standard' label='Email' className="w-100 my-2" value={Email} name='email' onChange={handleChangeEmail} />
+                                <TextField variant='standard' error={EmailError.error} helperText={EmailError.helpertext} label='Email' className="w-100 my-2" value={Email} name='email' onChange={handleChangeEmail} />
                             </div>
                             <div className="input-wrapper">
-                                <Button variant="contained">Submit</Button>
+                                <Button variant="contained" onClick={emailSubmit}>Submit</Button>
                             </div>
                         </div>
                     </div>
@@ -111,9 +115,11 @@ const UserProfile = () => {
                             <div className="py-1">Password</div>
                             <div className="val-edit">
                                 <div className="val">**********</div>
-                                <button className="valEdit" data-bs-toggle="collapse" data-bs-target="#userPassword" aria-expanded="false" aria-controls="userPassword">
-                                    <FiEdit />
-                                </button>
+                                <Tooltip placement='top' title="Edit">
+                                    <IconButton size='small' data-bs-toggle="collapse" data-bs-target="#userPassword" aria-expanded="false" aria-controls="userPassword">
+                                        <FiEdit />
+                                    </IconButton>
+                                </Tooltip>
                             </div>
                         </div>
                         <div className="collapse" id="userPassword">
@@ -121,7 +127,7 @@ const UserProfile = () => {
                                 <TextField variant='standard' type={PassVisibility ? 'text' : 'password'} label='Old Password' className="my-2 w-100 px-1" value={Password.password} name='password' onChange={handleChangePassword}
                                     InputProps={{
                                         endAdornment: <InputAdornment position='end'>
-                                            <IconButton onClick={handleChangePassVisibility}>
+                                            <IconButton size='small' onClick={handleChangePassVisibility}>
                                                 {
                                                     PassVisibility ? <MdVisibility /> : <MdVisibilityOff />
                                                 }
@@ -130,10 +136,10 @@ const UserProfile = () => {
                                     }} />
                             </div>
                             <div className="input-wrapper">
-                                <TextField variant='standard' type={NewPassVisibility ? 'text' : 'password'} label='New Password' className="my-2 w-50 mx-1" value={Password.newPassword} name='newPassword' onChange={handleChangePassword}
+                                <TextField variant='standard' type={NewPassVisibility ? 'text' : 'password'} error={PasswordError.newPassword.error} helperText={PasswordError.newPassword.helpertext} label='New Password' className="my-2 w-50 mx-1" value={Password.newPassword} name='newPassword' onChange={handleChangePassword}
                                     InputProps={{
                                         endAdornment: <InputAdornment position='end'>
-                                            <IconButton onClick={handleChangeNewPassVisibility}>
+                                            <IconButton size='small' onClick={handleChangeNewPassVisibility}>
                                                 {
                                                     NewPassVisibility ? <MdVisibility /> : <MdVisibilityOff />
                                                 }
@@ -143,7 +149,7 @@ const UserProfile = () => {
                                 <TextField variant='standard' error={PasswordError.conformPassword.error} helperText={PasswordError.conformPassword.helpertext} type={ConformPassVisibility ? 'text' : 'password'} label='Conform Password' className="my-2 w-50 mx-1" value={Password.conformPassword} name='conformPassword' onChange={handleChangePassword}
                                     InputProps={{
                                         endAdornment: <InputAdornment position='end'>
-                                            <IconButton onClick={handleChangeConformPassVisibility}>
+                                            <IconButton size='small' onClick={handleChangeConformPassVisibility}>
                                                 {
                                                     ConformPassVisibility ? <MdVisibility /> : <MdVisibilityOff />
                                                 }

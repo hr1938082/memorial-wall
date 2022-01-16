@@ -1,15 +1,23 @@
 import { useState, useRef, useEffect, useContext } from 'react';
 import profileDummy from '../images/userDummy.png'
-import { getState } from '../requests/StateRequest';
-import { getCity } from '../requests/CityRequest';
-import { getTempWall } from '../requests/TempWallRequest';
-import { getBricks } from '../requests/BicksRequest';
+import useStateRequest from '../requests/useStateRequest';
+import useCityRequest from '../requests/useCityRequest';
+import useTempWallRequest from '../requests/useTempWallRequest';
+import useBicksRequest from '../requests/useBicksRequest';
 import { TempWallData } from '../Context/TempWallIDataContext';
-import { CreateMemorial } from '../requests/MemorialRequest';
-import { getAllWalls, getWallById } from '../requests/WallsRequest';
+import useMemorialRequest from '../requests/useMemorialRequest';
+import useWallsRequest from '../requests/useWallsRequest';
+import { UserContext } from '../Context/UserContext';
 
 const useMemorialize = () => {
+    const { getState } = useStateRequest();
+    const { getCity } = useCityRequest();
+    const { getTempWall } = useTempWallRequest();
+    const { getBricks } = useBicksRequest();
+    const { CreateMemorial } = useMemorialRequest();
+    const { getAllWalls, getWallById } = useWallsRequest();
     const { tempWallData } = useContext(TempWallData);
+    const { User } = useContext(UserContext);
     const iframeHost = 'http://localhost:8000';
     const ImgPicker = useRef();
     const [GetSelect, setGetSelect] = useState({
@@ -45,7 +53,7 @@ const useMemorialize = () => {
     const getData = async () => {
         let imageName, stateData, existingWalls;
         if (tempWallData.status) {
-            const tempWallName = await getTempWall(tempWallData.WallTempImageId, 1);
+            const tempWallName = await getTempWall(tempWallData.WallTempImageId, User.user.id);
             if (tempWallName) {
                 imageName = tempWallName[0].image_name;
                 setValues((prev) => {

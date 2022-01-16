@@ -1,11 +1,15 @@
 import { useContext, useEffect, useState } from "react"
-import { getBricks } from "../requests/BicksRequest";
+import useBicksRequest from "../requests/useBicksRequest";
 import { useHistory } from "react-router-dom";
-import { getTempWall } from "../requests/TempWallRequest";
+import useTempWallRequest from "../requests/useTempWallRequest";
 import { TempWallData } from "../Context/TempWallIDataContext";
+import { UserContext } from "../Context/UserContext";
 
 const useSketchBoard = () => {
+    const { getBricks } = useBicksRequest();
+    const { getTempWall } = useTempWallRequest();
     const { tempWallData, TempWallUpdate } = useContext(TempWallData);
+    const { User } = useContext(UserContext);
     const iframeHost = 'http://localhost:8000';
     const history = useHistory();
     const [SelectValue, setSelectValue] = useState([]);
@@ -26,7 +30,7 @@ const useSketchBoard = () => {
 
         let imageName;
         if (tempWallData.status) {
-            const tempWallName = await getTempWall(tempWallData.WallTempImageId, 1);
+            const tempWallName = await getTempWall(tempWallData.WallTempImageId, User.user.id);
             if (tempWallName) {
                 imageName = tempWallName[0].image_name;
             }
@@ -57,7 +61,7 @@ const useSketchBoard = () => {
     window.addEventListener('message', saveImage);
     const handleSaveImage = () => {
         const frame = document.getElementById('sketchBoardIframe');
-        frame.contentWindow.postMessage('saveImageSketchBoard', iframeHost);
+        frame.contentWindow.postMessage({ userId: User.user.id }, iframeHost);
     }
     const handleChange = (e) => {
         const { value } = e.target;

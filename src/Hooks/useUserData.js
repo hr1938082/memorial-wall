@@ -1,7 +1,9 @@
 import { useState, useLayoutEffect } from "react";
 import { useHistory } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const useUserData = () => {
+    const location = useLocation();
     const history = useHistory();
     const [User, setUser] = useState({
         user: {},
@@ -26,7 +28,7 @@ const useUserData = () => {
         if (user) {
             user = JSON.parse(user);
             setUser({ user: user, isAuthenticated: true })
-            history.push('/');
+            history.push(location.pathname)
         }
     }, []);
 

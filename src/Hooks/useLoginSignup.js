@@ -1,9 +1,10 @@
 import { useContext, useRef, useState } from 'react';
 import validator from 'validator';
 import { UserContext } from '../Context/UserContext';
-import { Login, Signup } from '../requests/UserRequest';
+import useUserRequest from '../requests/useUserRequest';
 
 const useLoginSignup = () => {
+    const { Login, Signup } = useUserRequest();
     const { SaveUserInfo } = useContext(UserContext);
     const overLay = useRef();
     const loginForm = useRef();

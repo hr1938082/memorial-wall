@@ -12,7 +12,7 @@ const Memorialize = () => {
     return (
 
         GetSelect.isLoading ? (
-            <div className="row">
+            <div className="row m-0">
                 <div className="col-12 d-flex justify-content-center align-items-center" style={{ height: 'calc(100vh - 112px)' }}>
                     <CircularProgress />
                 </div>
@@ -65,7 +65,7 @@ const Memorialize = () => {
                         </div>
                     </div >
                     <div className="sketchpad">
-                        <iframe src={`http://localhost:8000/${GetSelect.WallName}`} id="mainIframe" title="staticHtml" frameBorder="0" style={{ width: '100%', height: '100%' }}></iframe>
+                        <iframe src={`http://104.248.174.124:8000/${GetSelect.WallName}`} id="mainIframe" title="staticHtml" frameBorder="0" style={{ width: '100%', height: '100%' }}></iframe>
                     </div>
                     <div className="d-flex justify-content-center flex-wrap my-3">
                         <div className="col-4 profile border">

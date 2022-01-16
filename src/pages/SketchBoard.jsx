@@ -6,7 +6,7 @@ const SketchBoard = () => {
     return (
         IsLoading ? ('') : (
             <div className="sketchboard">
-                <iframe title="skethBoard" id='sketchBoardIframe' src={`http://localhost:8000/${TempWallName}`} style={{ width: "100%", height: "calc(100vh - 219px)" }}></iframe>
+                <iframe title="skethBoard" id='sketchBoardIframe' src={`http://104.248.174.124:8000/${TempWallName}`} style={{ width: "100%", height: "calc(100vh - 219px)" }}></iframe>
                 <div style={{ height: '100px' }}>
                     <div className="d-flex">
                         <FormGroup className="Bricks-select">

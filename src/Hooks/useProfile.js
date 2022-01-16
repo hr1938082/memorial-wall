@@ -1,9 +1,10 @@
 import { useContext, useState } from "react";
 import { UserContext } from "../Context/UserContext";
 import dummy from '../images/userDummy.png';
+import validator from 'validator';
 
 const useProfile = () => {
-    const defaultError = { error: false, helpertext: ' ' };
+    const defaultError = { error: false, helpertext: '' };
     const { User } = useContext(UserContext);
     const [Image, setImage] = useState({
         prevImg: dummy,
@@ -25,6 +26,7 @@ const useProfile = () => {
     })
     const [PasswordError, setPasswordError] = useState({
         password: defaultError,
+        newPassword: defaultError,
         conformPassword: defaultError,
     })
     const [ImageModel, setImageModel] = useState(false);
@@ -63,10 +65,22 @@ const useProfile = () => {
         if (!(/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u).test(Name)) {
             setNameError({ error: true, helpertext: 'A name which is use in your daily life' });
         }
+        else {
+            setNameError({ error: false, helpertext: '' });
+        }
     }
 
     const handleChangeEmail = (e) => {
         setEmail(e.target.value);
+    }
+
+    const emailSubmit = () => {
+        if (!validator.isEmail(Email)) {
+            setEmailError({ error: true, helpertext: 'An Email that relates with you' });
+        }
+        else {
+            setEmailError({ error: false, helpertext: '' });
+        }
     }
 
     const handleChangePassword = (e) => {
@@ -96,14 +110,33 @@ const useProfile = () => {
                 }
             })
         }
-        else {
-            setPassword((prev) => {
-                return {
-                    ...prev,
-                    [name]: value,
-                }
-            })
+        if (name === 'newPassword') {
+            if (!(value.length >= 8)) {
+                console.log(true);
+                setPasswordError((prev) => {
+                    return {
+                        ...prev,
+                        newPassword: { error: true, helpertext: 'Password must be more more than 8 characters!!' }
+                    }
+                })
+            }
+            else {
+                console.log(false);
+                setPasswordError((prev) => {
+                    return {
+                        ...prev,
+                        newPassword: { error: false, helpertext: '' }
+                    }
+                })
+            }
         }
+
+        setPassword((prev) => {
+            return {
+                ...prev,
+                [name]: value,
+            }
+        })
     }
 
     const handleChangePassVisibility = () => {
@@ -132,6 +165,7 @@ const useProfile = () => {
         setImageError({ error: false, helpertext: '' })
         setImageModel(false)
     };
+    console.log(PasswordError);
     return {
         style,
         Image,
@@ -139,6 +173,7 @@ const useProfile = () => {
         Name,
         NameError,
         Email,
+        EmailError,
         Password,
         PassVisibility,
         NewPassVisibility,
@@ -156,6 +191,7 @@ const useProfile = () => {
         handleOpenImageModel,
         handleCloseImageModel,
         nameSubmit,
+        emailSubmit
     }
 }
 

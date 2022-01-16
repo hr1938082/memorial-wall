@@ -12,6 +12,10 @@ import { UserContext } from './Context/UserContext'
 import UserProfile from './pages/UserProfile';
 import FAQ from './pages/FAQ';
 import Pricing from './pages/Pricing';
+import AdvanceSearchLessLg from './pages/AdvanceSearchLessLg';
+import Funds from './pages/Funds';
+import Donation from './pages/Donation';
+import SearchResults from './pages/SearchResults';
 
 
 function App() {
@@ -27,6 +31,10 @@ function App() {
             <ProtectedRoutes exact path="/profile" component={UserProfile} />
             <ProtectedRoutes exact path="/FAQ" component={FAQ} />
             <ProtectedRoutes exact path="/pricing" component={Pricing} />
+            <ProtectedRoutes exact path="/advancesearch" component={AdvanceSearchLessLg} />
+            <ProtectedRoutes exact path="/funds" component={Funds} />
+            <ProtectedRoutes exact path="/donation/:id" component={Donation} />
+            <ProtectedRoutes exact path="/search" component={SearchResults} />
             <ProtectedRoutes component={NotFound} />
           </Switch>
         </WebLayout>
