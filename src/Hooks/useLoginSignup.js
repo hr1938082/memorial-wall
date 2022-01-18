@@ -62,9 +62,17 @@ const useLoginSignup = () => {
         if (!LoginValidatorfx()) {
             setisLoading(true);
             const login = await Login({ email: loginValues.email, password: loginValues.password });
-            if (login) {
+            if (login && !login.hasOwnProperty('status')) {
                 SaveUserInfo(login);
                 console.log(login);
+            } else {
+                setLoginValidator((prev) => {
+                    return {
+                        ...prev,
+                        email: { error: true, helperText: login.msg }
+                    }
+                })
+                setisLoading(false);
             }
         }
     }

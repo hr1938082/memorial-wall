@@ -10,7 +10,7 @@ const useSearchResult = () => {
         isLoading: true,
     });
     const getResults = async () => {
-        const collapse = document.getElementById('AdPanel');
+        const collapse = document.getElementById('AdSearch');
         collapse.classList.remove('show');
         setResults({ value: [], isLoading: true });
         const result = await getSearchResultsByData(location.state);
@@ -20,7 +20,6 @@ const useSearchResult = () => {
 
     }
     useEffect(() => {
-        console.log(location.state);
         getResults();
     }, [location])
 

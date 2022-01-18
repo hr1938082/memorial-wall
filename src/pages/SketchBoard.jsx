@@ -1,12 +1,17 @@
 import React from 'react';
-import { FormGroup, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import { FormGroup, FormControl, InputLabel, Select, MenuItem, CircularProgress } from '@mui/material';
 import useSketchBoard from '../Hooks/useSketchBoard';
+import { iframeHost } from '../Constants';
 const SketchBoard = () => {
-    const { SelectValue, handleChange, SketchBoardSelected, TempWallName, IsLoading, handleSaveImage } = useSketchBoard();
+    const { SelectValue, handleChange, SketchBoardSelected, TempWallName, IsLoading, handleSaveImage, handleCancel, SaveLoader } = useSketchBoard();
     return (
-        IsLoading ? ('') : (
+        IsLoading ? (
+            <div className='d-flex justify-content-center align-items-center' style={{ width: "100%", height: "calc(100vh - 112px)" }}>
+                <CircularProgress />
+            </div>
+        ) : (
             <div className="sketchboard">
-                <iframe title="skethBoard" id='sketchBoardIframe' src={`http://104.248.174.124:8000/${TempWallName}`} style={{ width: "100%", height: "calc(100vh - 219px)" }}></iframe>
+                <iframe title="skethBoard" id='sketchBoardIframe' src={`${iframeHost}/${TempWallName}`} style={{ width: "100%", height: "calc(100vh - 219px)" }}></iframe>
                 <div style={{ height: '100px' }}>
                     <div className="d-flex">
                         <FormGroup className="Bricks-select">
@@ -36,10 +41,17 @@ const SketchBoard = () => {
                             </FormControl>
                         </FormGroup>
                         <div className='d-flex align-items-center justify-content-center ms-3' style={{ width: '100px' }}>
-                            <input type="button" className='btn btn-primary w-100' value="Save" onClick={handleSaveImage} />
+                            <button className='btn btn-primary w-100' onClick={handleSaveImage}>
+                                {
+                                    SaveLoader ?
+                                        <div class="spinner-border spinner-border-sm" role="status">
+                                            <span class="visually-hidden">Loading...</span>
+                                        </div> : "Save"
+                                }
+                            </button>
                         </div>
                         <div className='d-flex align-items-center justify-content-center ms-3' style={{ width: '100px' }}>
-                            <input type="button" className='btn btn-primary w-100' value="Cancel" />
+                            <input type="button" className='btn btn-primary w-100' value="Cancel" onClick={handleCancel} />
                         </div>
                     </div>
                 </div>

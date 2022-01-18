@@ -4,13 +4,13 @@ import { useHistory } from "react-router-dom";
 import useTempWallRequest from "../requests/useTempWallRequest";
 import { TempWallData } from "../Context/TempWallIDataContext";
 import { UserContext } from "../Context/UserContext";
+import { iframeHost } from "../Constants";
 
 const useSketchBoard = () => {
     const { getBricks } = useBicksRequest();
     const { getTempWall } = useTempWallRequest();
     const { tempWallData, TempWallUpdate } = useContext(TempWallData);
     const { User } = useContext(UserContext);
-    const iframeHost = 'http://localhost:8000';
     const history = useHistory();
     const [SelectValue, setSelectValue] = useState([]);
     const [SketchBoardSelected, setSketchBoardSelected] = useState({
@@ -20,6 +20,7 @@ const useSketchBoard = () => {
     })
     const [TempWallName, setTempWallName] = useState('');
     const [IsLoading, setIsLoading] = useState(true);
+    const [SaveLoader, setSaveLoader] = useState(false);
 
 
     const getData = async () => {
@@ -54,12 +55,14 @@ const useSketchBoard = () => {
                 BricksId: SketchBoardSelected.id,
             }
             TempWallUpdate(dataToSet);
+            setSaveLoader(false);
             window.removeEventListener('message', saveImage);
             history.push('/memorialize');
         }
     }
     window.addEventListener('message', saveImage);
     const handleSaveImage = () => {
+        setSaveLoader(true);
         const frame = document.getElementById('sketchBoardIframe');
         frame.contentWindow.postMessage({ userId: User.user.id }, iframeHost);
     }
@@ -68,13 +71,18 @@ const useSketchBoard = () => {
         setSketchBoardSelected(value)
         setTempWallName(value.image)
     }
+    const handleCancel = () => {
+        history.push('/memorialize');
+    }
     return {
         SelectValue,
         SketchBoardSelected,
         handleChange,
         TempWallName,
         IsLoading,
-        handleSaveImage
+        handleSaveImage,
+        SaveLoader,
+        handleCancel,
     }
 }
 

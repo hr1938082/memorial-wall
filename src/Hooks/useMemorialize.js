@@ -8,17 +8,19 @@ import { TempWallData } from '../Context/TempWallIDataContext';
 import useMemorialRequest from '../requests/useMemorialRequest';
 import useWallsRequest from '../requests/useWallsRequest';
 import { UserContext } from '../Context/UserContext';
+import { useHistory } from 'react-router-dom';
+import { iframeHost } from '../Constants';
 
 const useMemorialize = () => {
+    const history = useHistory();
     const { getState } = useStateRequest();
     const { getCity } = useCityRequest();
     const { getTempWall } = useTempWallRequest();
     const { getBricks } = useBicksRequest();
     const { CreateMemorial } = useMemorialRequest();
     const { getAllWalls, getWallById } = useWallsRequest();
-    const { tempWallData } = useContext(TempWallData);
+    const { tempWallData, TempWallUpdate } = useContext(TempWallData);
     const { User } = useContext(UserContext);
-    const iframeHost = 'http://localhost:8000';
     const ImgPicker = useRef();
     const [GetSelect, setGetSelect] = useState({
         WallName: '',
@@ -49,12 +51,15 @@ const useMemorialize = () => {
         pass_date: ''
     });
 
+    const [open, setOpen] = useState(false);
+    const [SaveLoader, setSaveLoader] = useState(false);
 
     const getData = async () => {
         let imageName, stateData, existingWalls;
         if (tempWallData.status) {
             const tempWallName = await getTempWall(tempWallData.WallTempImageId, User.user.id);
             if (tempWallName) {
+                console.log(tempWallName, 'tempppppppppppppppppp');
                 imageName = tempWallName[0].image_name;
                 setValues((prev) => {
                     return {
@@ -101,7 +106,7 @@ const useMemorialize = () => {
             existingWallDropDown.classList.remove('d-none');
         }
 
-    }, [tempWallData])
+    }, [])
 
     const getCityReq = async (stateId) => {
         const city = await getCity(stateId);
@@ -196,21 +201,36 @@ const useMemorialize = () => {
             setValues((prev) => {
                 return {
                     ...prev,
-                    wall_id: wall.id
+                    wall_id: wall[0].id
                 }
             })
             setExistingWall(value);
             setGetSelect((prev) => {
                 return {
                     ...prev,
-                    WallName: wall.image,
+                    WallName: wall[0].image,
                     isLoading: false,
                 }
             })
+            const saveImage = e => {
+                if (e.origin.startsWith(iframeHost) && e.data.for === 'SketchBoard') {
+                    const dataToSet = {
+                        WallTempImageId: e.data.id,
+                        BricksId: wall[0].bricks_id,
+                    }
+                    TempWallUpdate(dataToSet);
+                    setSaveLoader(false);
+                    window.removeEventListener('message', saveImage);
+                }
+            }
+            window.addEventListener('message', saveImage);
+            const frame = document.getElementById('mainIframe');
+            frame.contentWindow.postMessage({ userId: User.user.id }, iframeHost);
         }
     }
 
     const handleSubmit = () => {
+        setSaveLoader(true);
         const frame = document.getElementById('mainIframe');
         frame.contentWindow.postMessage('CheckOut', iframeHost);
         const getImage = async (e) => {
@@ -221,13 +241,31 @@ const useMemorialize = () => {
                 }
                 const create = await CreateMemorial(data);
                 if (create) {
-                    console.log(create);
+                    setSaveLoader(false);
+                    window.removeEventListener('message', getImage);
+                    setOpen(true);
+                    const redirectTimeOut = setTimeout(() => {
+                        setOpen(false);
+                        history.push('/');
+                        clearTimeout(redirectTimeOut);
+                    }, 2000);
                 }
-                window.removeEventListener('message', getImage);
             }
         }
         window.addEventListener('message', getImage)
     }
+    const style = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 400,
+        bgcolor: 'background.paper',
+        boxShadow: 24,
+        p: 4,
+    };
+
+    const handleClose = () => setOpen(false);
     return {
         Values,
         ExistingWall,
@@ -240,7 +278,11 @@ const useMemorialize = () => {
         GetSelect,
         handleChangeDisplayOnWall,
         handleChangeExistingWall,
-        handleSubmit
+        handleSubmit,
+        style,
+        open,
+        handleClose,
+        SaveLoader
     }
 }
 

@@ -16,6 +16,9 @@ import AdvanceSearchLessLg from './pages/AdvanceSearchLessLg';
 import Funds from './pages/Funds';
 import Donation from './pages/Donation';
 import SearchResults from './pages/SearchResults';
+import WallHomePage from './pages/WallHomePage';
+import WallSketchBoard from './pages/WallSketchBoard';
+import Report from './pages/Report';
 
 
 function App() {
@@ -35,6 +38,9 @@ function App() {
             <ProtectedRoutes exact path="/funds" component={Funds} />
             <ProtectedRoutes exact path="/donation/:id" component={Donation} />
             <ProtectedRoutes exact path="/search" component={SearchResults} />
+            <ProtectedRoutes exact path="/memorial/:id" component={WallHomePage} />
+            <ProtectedRoutes exact path="/wall/:id/sketchboard" component={WallSketchBoard} />
+            <ProtectedRoutes exact path="/report" component={Report} />
             <ProtectedRoutes component={NotFound} />
           </Switch>
         </WebLayout>

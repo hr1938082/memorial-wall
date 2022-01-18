@@ -32,7 +32,7 @@ const SearchResults = () => {
                             Results.value.map((val, index) => {
                                 return (
                                     <div className="row m-0 mb-4 text-center" key={index}>
-                                        <Link to="/" className='d-flex py-1 text-decoration-none searchHover'>
+                                        <Link to={`/memorial/${val.id}`} className='d-flex py-1 text-decoration-none searchHover'>
                                             <div className="col-3">
                                                 {val.first_name}
                                             </div>

@@ -9,8 +9,15 @@ const useMemorialRequest = () => {
         return await create;
     }
 
+    const getMemorial = async (data) => {
+        const mainUrl = "get_memorial";
+        const get = await postRequest(mainUrl, { id: data });
+        return await get;
+    }
+
     return {
-        CreateMemorial
+        CreateMemorial,
+        getMemorial
     }
 }
 

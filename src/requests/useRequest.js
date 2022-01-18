@@ -15,11 +15,11 @@ const useRequest = () => {
                 }
             }
             else {
-                return data.message;
+                return data;
             }
         }
         else {
-            console.louseg('Request Failed');
+            console.log('Request Failed');
         }
     }
     const getRequest = async (uri) => {

@@ -36,7 +36,7 @@ const WebNavbar = () => {
                                     <NavLink className="nav-link d-block d-lg-none" activeClassName="active" to="/advancesearch">
                                         Advance Search
                                     </NavLink>
-                                    <div className='adSearch d-lg-flex d-none' data-bs-toggle="collapse" data-bs-target="#AdPanel" aria-expanded="false" aria-controls="AdPanel">
+                                    <div className='adSearch d-lg-flex d-none' data-bs-toggle="collapse" data-bs-target="#AdSearch" aria-expanded="false" aria-controls="AdSearch">
                                         Advance Search
                                     </div>
                                 </li>
@@ -158,7 +158,7 @@ const WebNavbar = () => {
                 </div>
             </nav>
 
-            <div className="collapse advanceSearchPanel border border-dark" id="AdPanel">
+            <div className="collapse advanceSearchPanel shadow" id="AdSearch">
                 <AdvanceSearchLg />
             </div>
         </div>

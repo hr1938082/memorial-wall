@@ -1,13 +1,14 @@
 import React from "react";
-import { FormControlLabel, FormGroup, Switch, Button, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
+import { FormControlLabel, FormGroup, Switch, Button, FormControl, InputLabel, Select, MenuItem, Modal, Box, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import useMemorialize from "../Hooks/useMemorialize";
 import { MdEdit } from 'react-icons/md';
 import { CircularProgress } from "@mui/material";
+import { iframeHost } from "../Constants";
 
 const Memorialize = () => {
 
-    const { Values, handleChangeSwitch, handleChange, ImgPicker, handlePicker, handleChangeImage, GetSelect, ExistingWall, DisplayOnWall, handleSubmit, handleChangeDisplayOnWall, handleChangeExistingWall } = useMemorialize();
+    const { Values, handleChangeSwitch, handleChange, ImgPicker, handlePicker, handleChangeImage, GetSelect, ExistingWall, DisplayOnWall, handleSubmit, handleChangeDisplayOnWall, handleChangeExistingWall, open, style, handleClose, SaveLoader } = useMemorialize();
 
     return (
 
@@ -65,7 +66,7 @@ const Memorialize = () => {
                         </div>
                     </div >
                     <div className="sketchpad">
-                        <iframe src={`http://104.248.174.124:8000/${GetSelect.WallName}`} id="mainIframe" title="staticHtml" frameBorder="0" style={{ width: '100%', height: '100%' }}></iframe>
+                        <iframe src={`${iframeHost}/${GetSelect.WallName}`} id="mainIframe" title="staticHtml" frameBorder="0" style={{ width: '100%', height: '100%' }}></iframe>
                     </div>
                     <div className="d-flex justify-content-center flex-wrap my-3">
                         <div className="col-4 profile border">
@@ -187,10 +188,31 @@ const Memorialize = () => {
                                     </Select>
                                 </FormControl>
                             </FormGroup>
-                            <button type="button" className="btn btn-primary form-control" onClick={handleSubmit}>Create and CheckOut</button>
+                            <button type="button" className="btn btn-primary form-control" onClick={handleSubmit}>
+                                {
+                                    SaveLoader ? <div class="spinner-border spinner-border-sm" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div> : "Create and CheckOut"
+                                }
+                            </button>
                         </div>
                     </div>
                 </div >
+                <Modal
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                >
+                    <Box sx={style}>
+                        <Typography id="modal-modal-title" variant="h6" component="h1">
+                            Memorial Created
+                        </Typography>
+                        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                            Find Your Memorial by Searching it
+                        </Typography>
+                    </Box>
+                </Modal>
             </div >
         )
 
