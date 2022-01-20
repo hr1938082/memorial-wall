@@ -1,12 +1,31 @@
+import { Box, CircularProgress, Typography, Button, Modal } from '@mui/material';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import useWallHomePage from '../Hooks/useWallHomePage';
 import dummy from '../images/userDummy.png'
 
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  boxShadow: 24,
+  p: 4,
+};
 const WallHomePage = () => {
-    const { wallHomePage } = useWallHomePage()
+    const { wallHomePage } = useWallHomePage();
+    
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
     return (
-        wallHomePage.isLoading ? ('') : (
+        wallHomePage.isLoading ? (
+            <div className='d-flex justify-content-center align-items-center' style={{height:"calc(100vh - 112px)"}}>
+                <CircularProgress/>
+            </div>
+        ) : (
             <div className='container-fluid'>
                 <div className="row justify-content-center py-2 fw-bold" style={{ fontSize: '1.1rem' }}>
                     Created By: Hasan Raza
@@ -41,14 +60,29 @@ const WallHomePage = () => {
                     </div>
                 </div>
                 <div className="row py-2 justify-content-center">
-                    <button className='btn btn-primary me-1 col-2'>Gift</button>
+                    <button onClick={handleOpen} className='btn btn-primary me-1 col-2'>Gift</button>
                     <Link to={`/wall/${wallHomePage.value.wall_id}/sketchboard`} className='btn btn-primary col-2'>Wall</Link>
                 </div>
-                <div className="row" style={{ height: '300px' }}>
+                <div className="row" style={{ height: '500px' }}>
                     <div className="col-12 d-flex justify-content-center align-items-center rounded border">
                         <h1>facebook Section</h1>
                     </div>
                 </div>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Text in a modal
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+          </Typography>
+        </Box>
+      </Modal>
             </div>
         )
     )

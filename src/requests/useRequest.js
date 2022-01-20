@@ -4,25 +4,23 @@ import { baseUrl } from '../Constants'
 
 const useRequest = () => {
     const { User } = useContext(UserContext);
+    console.log(User, 'userrrrrrrrrrrrrrrrrrrrrrrrrrr');
     const requestValidator = (data) => {
         if (data) {
             if (data.status === true) {
                 if (Object.keys(data).length > 1) {
                     return data.data;
-                }
-                else {
+                } else {
                     return data.status;
                 }
-            }
-            else {
+            } else {
                 return data;
             }
-        }
-        else {
+        } else {
             console.log('Request Failed');
         }
     }
-    const getRequest = async (uri) => {
+    const getRequest = async(uri) => {
         const req = await fetch(`${baseUrl}${uri}`, {
             headers: {
                 "Authorization": User.user.token,
@@ -33,7 +31,7 @@ const useRequest = () => {
         return requestValidator(await res);
     }
 
-    const postRequest = async (uri, body) => {
+    const postRequest = async(uri, body) => {
         const req = await fetch(baseUrl + uri, {
             headers: {
                 "Authorization": User.user.token,
