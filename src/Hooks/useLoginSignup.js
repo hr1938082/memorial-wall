@@ -1,11 +1,13 @@
-import { useContext, useRef, useState } from 'react';
+import { useContext, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import validator from 'validator';
 import { UserContext } from '../Context/UserContext';
 import useUserRequest from '../requests/useUserRequest';
+import { useHistory } from 'react-router-dom';
 
 const useLoginSignup = () => {
+    const history = useHistory();
     const { Login, Signup } = useUserRequest();
-    const { SaveUserInfo } = useContext(UserContext);
+    const { SaveUserInfo, User } = useContext(UserContext);
     const overLay = useRef();
     const loginForm = useRef();
     const signupForm = useRef();
@@ -35,6 +37,11 @@ const useLoginSignup = () => {
         password: defaultValidator,
         policy: defaultValidator
     })
+    useLayoutEffect(() => {
+        if (User.isAuthenticated) {
+            history.push('/');
+        }
+    }, [User])
     const handleContent = () => {
         overLay.current.classList.contains('active') ? overLay.current.classList.remove('active') : overLay.current.classList.add('active')
         loginForm.current.classList.contains('active') ? loginForm.current.classList.remove('active') : loginForm.current.classList.add('active');

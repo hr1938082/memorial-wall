@@ -8,7 +8,7 @@ import { iframeHost } from "../Constants";
 
 const Memorialize = () => {
 
-    const { Values, handleChangeSwitch, handleChange, ImgPicker, handlePicker, handleChangeImage, GetSelect, ExistingWall, DisplayOnWall, handleSubmit, handleChangeDisplayOnWall, handleChangeExistingWall, open, style, handleClose, SaveLoader } = useMemorialize();
+    const { Values, isLoading, handleChangeSwitch, handleChange, ImgPicker, handlePicker, handleChangeImage, GetSelect, ExistingWall, DisplayOnWall, handleSubmit, handleChangeDisplayOnWall, handleChangeExistingWall, open, style, handleClose, SaveLoader, WallName } = useMemorialize();
 
     return (
 
@@ -66,7 +66,7 @@ const Memorialize = () => {
                         </div>
                     </div >
                     <div className="sketchpad">
-                        <iframe src={`${iframeHost}/${GetSelect.WallName}`} id="mainIframe" title="staticHtml" frameBorder="0" style={{ width: '100%', height: '100%' }}></iframe>
+                        <iframe src={`${iframeHost}/${WallName}`} id="mainIframe" title="staticHtml" frameBorder="0" style={{ width: '100%', height: '100%' }}></iframe>
                     </div>
                     <div className="d-flex justify-content-center flex-wrap my-3">
                         <div className="col-4 profile border">
@@ -161,8 +161,8 @@ const Memorialize = () => {
                                         value={DisplayOnWall}
                                         onChange={handleChangeDisplayOnWall}
                                     >
-                                        <MenuItem value="community">Community Wall</MenuItem>
                                         <MenuItem value="new">New Wall</MenuItem>
+                                        <MenuItem value="community">Community Wall</MenuItem>
                                         <MenuItem value="existing">Existing Wall</MenuItem>
                                     </Select>
                                 </FormControl>
@@ -213,6 +213,10 @@ const Memorialize = () => {
                         </Typography>
                     </Box>
                 </Modal>
+                <div className={isLoading ? 'overlay active' : 'overlay'}>
+                    Loading...
+                    <CircularProgress color="inherit" />
+                </div>
             </div >
         )
 

@@ -1,9 +1,9 @@
 import { useContext } from "react";
-import { UserContext } from '../Context/UserContext'
+import { UserContext } from '../Context/UserContext';
+import { baseUrl } from '../Constants'
 
 const useRequest = () => {
     const { User } = useContext(UserContext);
-    const baseUrl = 'http://104.248.174.124:5000/';
     const requestValidator = (data) => {
         if (data) {
             if (data.status === true) {

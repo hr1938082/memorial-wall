@@ -144,6 +144,27 @@ nav {
   }
 }
 
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  user-select: none;
+  z-index: 10000000000;
+  color: white;
+  display: none;
+  flex-direction: column;
+  font-size: 1.5rem;
+  justify-content: center;
+  align-items: center
+}
+
+.overlay.active {
+  display: flex;
+}
+
 footer {
   background-color: $base-Color;
 

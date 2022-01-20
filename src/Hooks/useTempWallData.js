@@ -9,6 +9,7 @@ const useTempWallData = () => {
         }
     );
     const TempWallUpdate = (data) => {
+        console.log(data, 'tempppppppppp');
         localStorage.setItem('WallTempImageData', JSON.stringify(data))
         settempWallData(
             {

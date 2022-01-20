@@ -12,9 +12,15 @@ const useWallsRequest = () => {
         return await getWall;
     }
 
+    const getCommunityWall = async () => {
+        const getCommunity = await getRequest('get_com_wall');
+        return await getCommunity;
+    }
+
     return {
         getAllWalls,
-        getWallById
+        getWallById,
+        getCommunityWall,
     }
 }
 

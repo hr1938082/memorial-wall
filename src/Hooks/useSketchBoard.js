@@ -21,6 +21,7 @@ const useSketchBoard = () => {
     const [TempWallName, setTempWallName] = useState('');
     const [IsLoading, setIsLoading] = useState(true);
     const [SaveLoader, setSaveLoader] = useState(false);
+    const [NewWall, setNewWall] = useState(true);
 
 
     const getData = async () => {
@@ -30,10 +31,12 @@ const useSketchBoard = () => {
         }
 
         let imageName;
+        let newWall = true;
         if (tempWallData.status) {
             const tempWallName = await getTempWall(tempWallData.WallTempImageId, User.user.id);
             if (tempWallName) {
                 imageName = tempWallName[0].image_name;
+                newWall = false;
             }
         }
         else {
@@ -41,6 +44,7 @@ const useSketchBoard = () => {
             setSketchBoardSelected(bricks[0])
         }
         setTempWallName(imageName);
+        setNewWall(newWall);
         setIsLoading(false);
     }
 
@@ -83,6 +87,7 @@ const useSketchBoard = () => {
         handleSaveImage,
         SaveLoader,
         handleCancel,
+        NewWall
     }
 }
 

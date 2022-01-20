@@ -18,18 +18,19 @@ const useMemorialize = () => {
     const { getTempWall } = useTempWallRequest();
     const { getBricks } = useBicksRequest();
     const { CreateMemorial } = useMemorialRequest();
-    const { getAllWalls, getWallById } = useWallsRequest();
+    const { getAllWalls, getWallById, getCommunityWall } = useWallsRequest();
     const { tempWallData, TempWallUpdate } = useContext(TempWallData);
     const { User } = useContext(UserContext);
     const ImgPicker = useRef();
     const [GetSelect, setGetSelect] = useState({
-        WallName: '',
         state: [],
         city: [],
         existingWalls: [],
         isLoading: true,
-    })
-    const [DisplayOnWall, setDisplayOnWall] = useState('community')
+    });
+    const [isLoading, setisLoading] = useState(false)
+    const [WallName, setWallName] = useState('');
+    const [DisplayOnWall, setDisplayOnWall] = useState('new')
     const [ExistingWall, setExistingWall] = useState('');
     const [Values, setValues] = useState({
         name: '',
@@ -59,7 +60,6 @@ const useMemorialize = () => {
         if (tempWallData.status) {
             const tempWallName = await getTempWall(tempWallData.WallTempImageId, User.user.id);
             if (tempWallName) {
-                console.log(tempWallName, 'tempppppppppppppppppp');
                 imageName = tempWallName[0].image_name;
                 setValues((prev) => {
                     return {
@@ -88,10 +88,10 @@ const useMemorialize = () => {
 
         const ExistingWalls = await getAllWalls();
         existingWalls = ExistingWalls;
+        setWallName(imageName);
         setGetSelect((prev) => {
             return {
                 ...prev,
-                WallName: imageName,
                 state: stateData,
                 existingWalls: existingWalls,
                 isLoading: false
@@ -101,11 +101,6 @@ const useMemorialize = () => {
 
     useEffect(() => {
         getData();
-        const existingWallDropDown = document.getElementById('existingWallDropDown');
-        if (DisplayOnWall === 'existing') {
-            existingWallDropDown.classList.remove('d-none');
-        }
-
     }, [])
 
     const getCityReq = async (stateId) => {
@@ -175,43 +170,51 @@ const useMemorialize = () => {
         }
     }
 
-    const handleChangeDisplayOnWall = (e) => {
+    const handleChangeDisplayOnWall = async (e) => {
+        const existingWallDropDown = document.getElementById('existingWallDropDown');
         const value = e.target.value;
+        setDisplayOnWall(value);
         if (value === 'existing') {
-            const existingWallDropDown = document.getElementById('existingWallDropDown');
             existingWallDropDown.classList.contains('d-none') && existingWallDropDown.classList.remove('d-none');
+        } else if (value === 'community') {
+            !existingWallDropDown.classList.contains('d-none') && existingWallDropDown.classList.add('d-none');
+            const Community = await getCommunityWall();
+            if (Community) {
+                const frame = document.getElementById('mainIframe');
+                frame.contentWindow.postMessage({ userId: User.user.id }, iframeHost);
+                setisLoading(true);
+                const saveImage = e => {
+                    if (e.origin.startsWith(iframeHost) && e.data.for === 'SketchBoard') {
+                        const dataToSet = {
+                            WallTempImageId: e.data.id,
+                            BricksId: Community[0].bricks_id,
+                        }
+                        TempWallUpdate(dataToSet);
+                        setValues((prev) => {
+                            return {
+                                ...prev,
+                                wall_id: Community[0].id
+                            }
+                        })
+                        setWallName(Community[0].image)
+                        setisLoading(false);
+                        window.removeEventListener('message', saveImage);
+                    }
+                }
+                window.addEventListener('message', saveImage);
+            }
         } else {
-            const existingWallDropDown = document.getElementById('existingWallDropDown');
             !existingWallDropDown.classList.contains('d-none') && existingWallDropDown.classList.add('d-none');
         }
-        setDisplayOnWall(value);
-
     }
 
-    const handleChangeExistingWall = async (e) => {
-        setGetSelect((prev) => {
-            return {
-                ...prev,
-                isLoading: true,
-            }
-        })
+    const handleChangeExistingWall = (e) => {
         const value = e.target.value;
-        const wall = await getWallById(value);
-        if (wall) {
-            setValues((prev) => {
-                return {
-                    ...prev,
-                    wall_id: wall[0].id
-                }
-            })
-            setExistingWall(value);
-            setGetSelect((prev) => {
-                return {
-                    ...prev,
-                    WallName: wall[0].image,
-                    isLoading: false,
-                }
-            })
+        setExistingWall(value);
+        getWallById(value).then(wall => {
+            const frame = document.getElementById('mainIframe');
+            frame.contentWindow.postMessage({ userId: User.user.id }, iframeHost);
+            setisLoading(true);
             const saveImage = e => {
                 if (e.origin.startsWith(iframeHost) && e.data.for === 'SketchBoard') {
                     const dataToSet = {
@@ -219,14 +222,19 @@ const useMemorialize = () => {
                         BricksId: wall[0].bricks_id,
                     }
                     TempWallUpdate(dataToSet);
-                    setSaveLoader(false);
+                    setValues((prev) => {
+                        return {
+                            ...prev,
+                            wall_id: wall[0].id
+                        }
+                    })
+                    setWallName(wall[0].image)
+                    setisLoading(false);
                     window.removeEventListener('message', saveImage);
                 }
             }
             window.addEventListener('message', saveImage);
-            const frame = document.getElementById('mainIframe');
-            frame.contentWindow.postMessage({ userId: User.user.id }, iframeHost);
-        }
+        });
     }
 
     const handleSubmit = () => {
@@ -276,13 +284,15 @@ const useMemorialize = () => {
         handlePicker,
         handleChangeImage,
         GetSelect,
+        WallName,
         handleChangeDisplayOnWall,
         handleChangeExistingWall,
         handleSubmit,
         style,
         open,
         handleClose,
-        SaveLoader
+        SaveLoader,
+        isLoading,
     }
 }
 

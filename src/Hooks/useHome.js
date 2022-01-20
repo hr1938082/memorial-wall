@@ -1,7 +1,9 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useLayoutEffect } from "react";
 import html2canvas from "html2canvas";
+import useWallsRequest from '../requests/useWallsRequest'
 
 const useHome = () => {
+    const { getCommunityWall } = useWallsRequest();
     let scrollTo = 0;
     let controlScrollTo = 0;
     let timeOut;
@@ -10,6 +12,18 @@ const useHome = () => {
     const sliderControl = useRef();
     const BricksWallWidth = 2000;
     const [dropedImages, setdropedImages] = useState([]);
+    const [BricksWallImage, setBricksWallImage] = useState('');
+    const [IsLoading, setIsLoading] = useState(true);
+    const getCommunity = async () => {
+        const community = await getCommunityWall();
+        if (community) {
+            setBricksWallImage(community[0].image);
+            setIsLoading(false);
+        }
+    }
+    useLayoutEffect(() => {
+        getCommunity();
+    }, [])
 
 
     const handleScrollLeft = () => {
@@ -145,7 +159,9 @@ const useHome = () => {
         handleDragLeave,
         handleDrop,
         handleDrag,
-        DownloadJpeg
+        DownloadJpeg,
+        BricksWallImage,
+        IsLoading
     }
 }
 

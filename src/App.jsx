@@ -22,8 +22,9 @@ import Report from './pages/Report';
 
 
 function App() {
+  const User = useUserData();
   return (
-    <UserContext.Provider value={useUserData()}>
+    <UserContext.Provider value={User}>
       <Switch>
         <Route exact path="/login" component={LoginSignup} />
         <WebLayout>
