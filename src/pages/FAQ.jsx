@@ -1,133 +1,39 @@
+import { CircularProgress } from '@mui/material';
 import React from 'react';
+import useFAQ from '../Hooks/useFAQ';
 
 const FAQ = () => {
-    const handleToggleActive = (e) => {
-        const target = e.currentTarget;
-        target.classList.contains('active') ? target.classList.remove('active') : target.classList.add('active');
-    }
+    const faq = useFAQ();
     return (
-        <div className='FAQ'>
-            <div className="mainWrapper">
-                <div className='my-3'>
-                    <div className="question active" onClick={handleToggleActive} data-bs-toggle="collapse" data-bs-target="#faq0" aria-expanded="false" aria-controls="faq0">
-                        <div className='icon'>
-                            Q.
-                        </div>
-                        <p>
-                            How do I fnd someones page on Wallmorial?
-                        </p>
-                    </div>
-                    <div class="collapse show answer" id="faq0">
-                        Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
-                    </div>
-                </div>
-                <div className='my-3'>
-                    <div className="question" onClick={handleToggleActive} data-bs-toggle="collapse" data-bs-target="#faq1" aria-expanded="false" aria-controls="faq1">
-                        <div className='icon'>
-                            Q.
-                        </div>
-                        <p>
-                            How do I fnd someones page on Wallmorial?
-                        </p>
-                    </div>
-                    <div class="collapse answer" id="faq1">
-                        Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
-                    </div>
-                </div>
-                <div className='my-3'>
-                    <div className="question" onClick={handleToggleActive} data-bs-toggle="collapse" data-bs-target="#faq2" aria-expanded="false" aria-controls="faq2">
-                        <div className='icon'>
-                            Q.
-                        </div>
-                        <p>
-                            How do I fnd someones page on Wallmorial?
-                        </p>
-                    </div>
-                    <div class="collapse answer" id="faq2">
-                        Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
-                    </div>
-                </div>
-                <div className='my-3'>
-                    <div className="question" onClick={handleToggleActive} data-bs-toggle="collapse" data-bs-target="#faq3" aria-expanded="false" aria-controls="faq3">
-                        <div className='icon'>
-                            Q.
-                        </div>
-                        <p>
-                            How do I fnd someones page on Wallmorial?
-                        </p>
-                    </div>
-                    <div class="collapse answer" id="faq3">
-                        Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
-                    </div>
-                </div>
-                <div className='my-3'>
-                    <div className="question" onClick={handleToggleActive} data-bs-toggle="collapse" data-bs-target="#faq4" aria-expanded="false" aria-controls="faq4">
-                        <div className='icon'>
-                            Q.
-                        </div>
-                        <p>
-                            How do I fnd someones page on Wallmorial?
-                        </p>
-                    </div>
-                    <div class="collapse answer" id="faq4">
-                        Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
-                    </div>
-                </div>
-                <div className='my-3'>
-                    <div className="question" onClick={handleToggleActive} data-bs-toggle="collapse" data-bs-target="#faq5" aria-expanded="false" aria-controls="faq5">
-                        <div className='icon'>
-                            Q.
-                        </div>
-                        <p>
-                            How do I fnd someones page on Wallmorial?
-                        </p>
-                    </div>
-                    <div class="collapse answer" id="faq5">
-                        Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
-                    </div>
-                </div>
-                <div className='my-3'>
-                    <div className="question" onClick={handleToggleActive} data-bs-toggle="collapse" data-bs-target="#faq6" aria-expanded="false" aria-controls="faq6">
-                        <div className='icon'>
-                            Q.
-                        </div>
-                        <p>
-                            How do I fnd someones page on Wallmorial?
-                        </p>
-                    </div>
-                    <div class="collapse answer" id="faq6">
-                        Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
-                    </div>
-                </div>
-                <div className='my-3'>
-                    <div className="question" onClick={handleToggleActive} data-bs-toggle="collapse" data-bs-target="#faq7" aria-expanded="false" aria-controls="faq7">
-                        <div className='icon'>
-                            Q.
-                        </div>
-                        <p>
-                            How do I fnd someones page on Wallmorial?
-                        </p>
-                    </div>
-                    <div class="collapse answer" id="faq7">
-                        Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
-                    </div>
-                </div>
-
-                <div className='my-3'>
-                    <div className="question" onClick={handleToggleActive} data-bs-toggle="collapse" data-bs-target="#faq8" aria-expanded="false" aria-controls="faq8">
-                        <div className='icon'>
-                            Q.
-                        </div>
-                        <p>
-                            How do I fnd someones page on Wallmorial?
-                        </p>
-                    </div>
-                    <div class="collapse answer" id="faq8">
-                        Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
-                    </div>
-                </div>
+        faq.FAQValues.isLoading ? (
+            <div className='d-flex justify-content-center align-items-center' style={{ height: "calc(100vh - 112px)" }}>
+                <CircularProgress />
             </div>
-        </div>
+        ) : (
+            <div className='FAQ'>
+                <div className="mainWrapper">
+                    {
+                        faq.FAQValues.values.map((val, index) => {
+                            return (
+                                <div className='my-3' key={index}>
+                                    <div className={index === 0 ? "question active" : "question"} onClick={faq.handleToggleActive} data-bs-toggle="collapse" data-bs-target={`#faq${index}`} aria-expanded="false" aria-controls={`faq${index}`}>
+                                        <div className='icon'>
+                                            Q.
+                                        </div>
+                                        <p>
+                                            {val.question}
+                                        </p>
+                                    </div>
+                                    <div className={index === 0 ? "collapse show answer" : "collapse answer"} id={`faq${index}`}>
+                                        {val.answer}
+                                    </div>
+                                </div>
+                            )
+                        })
+                    }
+                </div>
+            </div >
+        )
     )
 }
 
